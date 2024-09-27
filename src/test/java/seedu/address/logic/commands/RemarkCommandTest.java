@@ -54,7 +54,7 @@ public class RemarkCommandTest {
         Person editedPerson = new PersonBuilder(firstPerson).withRemark("").build();
 
         RemarkCommand remarkCommand =
-                new RemarkCommand(INDEX_FIRST_PERSON, new Remark(editedPerson.getRemark().toString()));
+            new RemarkCommand(INDEX_FIRST_PERSON, new Remark(editedPerson.getRemark().toString()));
 
         String expectedMessage = String.format(RemarkCommand.MESSAGE_DELETE_REMARK_SUCCESS, editedPerson);
 
@@ -70,8 +70,8 @@ public class RemarkCommandTest {
 
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson =
-                new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased())).withRemark(
-                        REMARK_STUB).build();
+            new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased())).withRemark(
+                REMARK_STUB).build();
 
         RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(editedPerson.getRemark().value));
 
@@ -92,7 +92,8 @@ public class RemarkCommandTest {
     }
 
     /**
-     * Edit filtered list where index is larger than size of filtered list, but smaller than size of address book
+     * Edit filtered list where index is larger than size of filtered list,
+     * but smaller than size of address book
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
