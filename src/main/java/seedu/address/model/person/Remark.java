@@ -9,6 +9,11 @@ public class Remark {
 
     public final String value;
 
+    /**
+     * Initializes a new Remark with the given string.
+     *
+     * @param remark A non-null string that represents the person's remark
+     */
     public Remark(String remark) {
         requireNonNull(remark);
         value = remark;
