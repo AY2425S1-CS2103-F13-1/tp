@@ -10,6 +10,7 @@ import spleetwaise.address.logic.parser.exceptions.ParseException;
 import spleetwaise.address.model.Model;
 import spleetwaise.address.model.ReadOnlyAddressBook;
 import spleetwaise.address.model.person.Person;
+import spleetwaise.transaction.model.transaction.Transaction;
 
 /**
  * API of the Logic component
@@ -48,4 +49,7 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /** Returns an unmodifiable view of the filtered list of transactions */
+    ObservableList<Transaction> getFilteredTransactionList();
 }

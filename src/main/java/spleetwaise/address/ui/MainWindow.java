@@ -5,10 +5,12 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import spleetwaise.address.commons.core.GuiSettings;
 import spleetwaise.address.commons.core.LogsCenter;
@@ -16,6 +18,7 @@ import spleetwaise.address.logic.Logic;
 import spleetwaise.address.logic.commands.CommandResult;
 import spleetwaise.address.logic.commands.exceptions.CommandException;
 import spleetwaise.address.logic.parser.exceptions.ParseException;
+import spleetwaise.transaction.ui.TransactionListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -24,6 +27,7 @@ import spleetwaise.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final double MIN_WIDTH_FOR_SPLIT = 800;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -32,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private TransactionListPanel transactionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -45,10 +50,22 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane transactionListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private SplitPane mainSplitPane;
+
+    @FXML
+    private VBox leftPane;
+
+    @FXML
+    private VBox rightPane;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -66,6 +83,9 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        // Add listener to handle layout changes
+        addWindowSizeListener();
     }
 
     public Stage getPrimaryStage() {
@@ -107,11 +127,50 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Adds a listener to the window size to adjust the SplitPane based on width.
+     */
+    private void addWindowSizeListener() {
+        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            double width = newVal.doubleValue();
+            adjustPaneVisibility(width);
+        });
+
+        adjustPaneVisibility(primaryStage.getWidth()); // initial adjustment based on current window size
+    }
+
+    /**
+     * Adjusts the visibility of the panes based on window width.
+     */
+    private void adjustPaneVisibility(double width) {
+        if (width < MIN_WIDTH_FOR_SPLIT) {
+            // Hide the rightPane and replace personList with transactionList in leftPane
+            mainSplitPane.getItems().remove(rightPane);
+            // TODO: if the command is transaction related, and replace personList with transactionList
+            // if (!leftPane.getChildren().contains(transactionListPanelPlaceholder)) {
+            //    leftPane.getChildren().remove(personListPanelPlaceholder);
+            //    leftPane.getChildren().add(transactionListPanelPlaceholder);
+            //}
+        } else {
+            // Show both personList and transactionList in the split pane
+            if (!mainSplitPane.getItems().contains(rightPane)) {
+                mainSplitPane.getItems().add(rightPane); // Add the rightPane if not already in the SplitPane
+            }
+            if (!leftPane.getChildren().contains(personListPanelPlaceholder)) {
+                leftPane.getChildren().remove(transactionListPanelPlaceholder);
+                leftPane.getChildren().add(personListPanelPlaceholder);
+            }
+        }
+    }
+
+    /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
+        transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
