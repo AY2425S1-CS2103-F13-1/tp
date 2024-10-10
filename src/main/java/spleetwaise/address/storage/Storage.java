@@ -8,11 +8,13 @@ import spleetwaise.address.commons.exceptions.DataLoadingException;
 import spleetwaise.address.model.ReadOnlyAddressBook;
 import spleetwaise.address.model.ReadOnlyUserPrefs;
 import spleetwaise.address.model.UserPrefs;
+import spleetwaise.transaction.model.ReadOnlyTransactionBook;
+import spleetwaise.transaction.storage.TransactionBookStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends AddressBookStorage, UserPrefsStorage, TransactionBookStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataLoadingException;
@@ -28,5 +30,14 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
 
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+
+    @Override
+    Path getTransactionBookFilePath();
+
+    @Override
+    Optional<ReadOnlyTransactionBook> readTransactionBook() throws DataLoadingException;
+
+    @Override
+    void saveTransactionBook(ReadOnlyTransactionBook transactionBook) throws IOException;
 
 }
