@@ -35,8 +35,7 @@ public class TransactionParserTest {
 
     @Test
     public void parseCommand_unknown() throws Exception {
-        Command command = (Command) parser.parseCommand(
-            "420YoloSwag");
+        Command command = parser.parseCommand("420YoloSwag");
         assertNull(command);
     }
 
