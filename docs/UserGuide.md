@@ -141,11 +141,17 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-### Clearing all entries : `clear`
+### Clearing all entries of AddressBook: `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
+
+### Clearing all entries of TransactionBook : `clearTxn`
+
+Clears all entries from the transaction book.
+
+Format: `clearTxn`
 
 ### Exiting the program : `exit`
 
