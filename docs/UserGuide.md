@@ -192,7 +192,7 @@ _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+## Command Summary for Address Book
 
 | Action     | Format, Examples                                                                                                                                                      |
 |------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -203,3 +203,13 @@ _Details coming soon ..._
 | **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                            |
 | **List**   | `list`                                                                                                                                                                |
 | **Help**   | `help`                                                                                                                                                                |
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Command Summary for Transactions
+
+| Action    | Format, Examples                                                                                                                                                                 |
+|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**   | `add p/PHONE_NUMBER amt/AMOUNT desc/DESCRIPTION date/DATE` <br> e.g., `addTxn p/99999999 amt/-9999999999.99 desc/Sean owes me a lot for a plot of land in sentosa date/10102024` |
+| **List**  | `listTxn`                                                                                                                                                                        |
+| **Clear** | `clearTxn`                                                                                                                                                                       |
