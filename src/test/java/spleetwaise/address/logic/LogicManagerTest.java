@@ -28,7 +28,9 @@ import spleetwaise.address.testutil.PersonBuilder;
 import spleetwaise.address.testutil.TypicalPersons;
 import spleetwaise.commons.exceptions.SpleetWaiseCommandException;
 import spleetwaise.transaction.logic.parser.ParserUtil;
+import spleetwaise.transaction.model.ReadOnlyTransactionBook;
 import spleetwaise.transaction.model.transaction.TransactionIdUtil;
+import spleetwaise.transaction.storage.JsonTransactionBookStorage;
 
 public class LogicManagerTest {
 
@@ -46,7 +48,9 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonTransactionBookStorage transactionBookStorage =
+            new JsonTransactionBookStorage(temporaryFolder.resolve("transactionBook.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, transactionBookStorage);
         logic = new LogicManager(addressBookModel, transactionModel, storage);
     }
 
@@ -94,8 +98,7 @@ public class LogicManagerTest {
 
         String addTxnCommand = "addTxn p/94351253 amt/+12.3 desc/Test date/01012024";
         String expectedMessageSuccess = String.format(spleetwaise.transaction.logic.commands.AddCommand.MESSAGE_SUCCESS,
-                "[test-uuid] Alice Pauline(94351253): Test on 01/01/2024 for $+12.30");
-
+            "[test-uuid] Alice Pauline(94351253): Test on 01/01/2024 for $+12.30");
 
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, addressBookModel, transactionModel);
         TransactionIdUtil.setDeterminate(true);
@@ -200,7 +203,8 @@ public class LogicManagerTest {
     private void assertCommandFailureForExceptionFromStorage(IOException e, String expectedMessage) {
         Path prefPath = temporaryFolder.resolve("ExceptionUserPrefs.json");
 
-        // Inject LogicManager with an AddressBookStorage that throws the IOException e when saving
+        // Inject LogicManager with AddressBookStorage and TransactionBookStorage that throws the IOException
+        // when saving
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(prefPath) {
             @Override
             public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
@@ -208,9 +212,16 @@ public class LogicManagerTest {
             }
         };
 
+        JsonTransactionBookStorage transactionBookStorage = new JsonTransactionBookStorage(prefPath) {
+            @Override
+            public void saveTransactionBook(ReadOnlyTransactionBook transactionBook, Path filePath) throws IOException {
+                throw e;
+            }
+        };
+
         JsonUserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+            new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, transactionBookStorage);
 
         logic = new LogicManager(addressBookModel, transactionModel, storage);
 

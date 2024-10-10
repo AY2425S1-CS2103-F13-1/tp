@@ -10,6 +10,8 @@ import spleetwaise.address.commons.exceptions.DataLoadingException;
 import spleetwaise.address.model.ReadOnlyAddressBook;
 import spleetwaise.address.model.ReadOnlyUserPrefs;
 import spleetwaise.address.model.UserPrefs;
+import spleetwaise.transaction.model.ReadOnlyTransactionBook;
+import spleetwaise.transaction.storage.TransactionBookStorage;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -19,13 +21,16 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private TransactionBookStorage transactionBookStorage;
 
     /**
      * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}.
      */
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+        TransactionBookStorage transactionBookStorage) {
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.transactionBookStorage = transactionBookStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -44,7 +49,6 @@ public class StorageManager implements Storage {
     public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
-
 
     // ================ AddressBook methods ==============================
 
@@ -73,6 +77,35 @@ public class StorageManager implements Storage {
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
+    }
+
+    // ================ TransactionBook methods ==============================
+
+    @Override
+    public Path getTransactionBookFilePath() {
+        return transactionBookStorage.getTransactionBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyTransactionBook> readTransactionBook() throws DataLoadingException {
+        return readTransactionBook(transactionBookStorage.getTransactionBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyTransactionBook> readTransactionBook(Path filePath) throws DataLoadingException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return transactionBookStorage.readTransactionBook(filePath);
+    }
+
+    @Override
+    public void saveTransactionBook(ReadOnlyTransactionBook transactionBook) throws IOException {
+        saveTransactionBook(transactionBook, transactionBookStorage.getTransactionBookFilePath());
+    }
+
+    @Override
+    public void saveTransactionBook(ReadOnlyTransactionBook transactionBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        transactionBookStorage.saveTransactionBook(transactionBook, filePath);
     }
 
 }

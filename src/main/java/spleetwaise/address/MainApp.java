@@ -29,6 +29,8 @@ import spleetwaise.address.storage.StorageManager;
 import spleetwaise.address.storage.UserPrefsStorage;
 import spleetwaise.address.ui.Ui;
 import spleetwaise.address.ui.UiManager;
+import spleetwaise.transaction.storage.JsonTransactionBookStorage;
+import spleetwaise.transaction.storage.TransactionBookStorage;
 
 /**
  * Runs the application.
@@ -58,7 +60,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        TransactionBookStorage transactionBookStorage =
+            new JsonTransactionBookStorage(userPrefs.getTransactionBookFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, transactionBookStorage);
 
         transactionModel = initTransactionModelManager();
         addressBookModel = initAddressBookModelManager(storage, userPrefs);
@@ -96,7 +100,6 @@ public class MainApp extends Application {
 
     /**
      * TODO: Initialise transaction model by setting up storage items
-     *
      */
     private spleetwaise.transaction.model.Model initTransactionModelManager() {
         return new spleetwaise.transaction.model.ModelManager();

@@ -43,7 +43,7 @@ public class LogicManager implements Logic {
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
      */
     public LogicManager(spleetwaise.address.model.Model addressBookModel,
-                        spleetwaise.transaction.model.Model transactionModel, Storage storage) {
+        spleetwaise.transaction.model.Model transactionModel, Storage storage) {
         this.addressBookModel = addressBookModel;
         this.transactionModel = transactionModel;
         this.storage = storage;
@@ -115,7 +115,14 @@ public class LogicManager implements Logic {
             throws SpleetWaiseCommandException {
         CommandResult commandResult = transactionCommand.execute(transactionModel);
 
-        // TODO: Save Transactions data
+        // Save TransactionBook data
+        try {
+            storage.saveTransactionBook(transactionModel.getTransactionBook());
+        } catch (AccessDeniedException e) {
+            throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
+        } catch (IOException ioe) {
+            throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
+        }
 
         return commandResult;
     }
