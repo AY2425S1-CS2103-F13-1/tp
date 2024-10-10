@@ -14,12 +14,13 @@ public class Transaction {
     private final Amount amount;
     private final Description description;
     private final Date date;
+    private Tags tags = new Tags();
 
     /**
      * Represents a Transaction in the transaction book.
      *
      * @param person The person involved in this transaction.
-     * @param amount The amount involved in this transcation.
+     * @param amount The amount involved in this transaction.
      * @param description The description of the transaction.
      * @param date The date the transaction has taken place.
      */
@@ -54,6 +55,20 @@ public class Transaction {
 
     public Date getDate() {
         return date;
+    }
+
+    public void addTag(String tag) {
+        if (tags.contains(tag)) {
+            // print some sort of error where there is duplicates
+        } else {
+            tags.add(tag);
+        }
+    }
+
+    public void removeTag(String tag) {
+        if (!tags.remove(tag)) {
+            // print some sort of error where there is no such tag that exists
+        }
     }
 
     /**
