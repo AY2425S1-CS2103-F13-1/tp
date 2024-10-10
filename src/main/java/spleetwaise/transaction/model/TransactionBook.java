@@ -7,6 +7,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import spleetwaise.address.commons.util.CollectionUtil;
 import spleetwaise.transaction.model.transaction.Transaction;
 import spleetwaise.transaction.model.transaction.exceptions.DuplicateTransactionException;
 
@@ -31,10 +32,21 @@ public class TransactionBook implements ReadOnlyTransactionBook {
     }
 
     /**
-     * Creates an TransactionBook using the Transactions in the {@code existingTransactionBook}.
+     * Creates a TransactionBook using the Transactions in the {@code existingTransactionBook}.
      */
     public TransactionBook(TransactionBook existingTransactionBook) {
         this(existingTransactionBook.transactionList);
+    }
+
+    /**
+     * Creates a TransactionBook using the Transactions in the {@code toBeCopied}
+     */
+    public TransactionBook(ReadOnlyTransactionBook toBeCopied) {
+        this();
+        ObservableList<Transaction> txns = toBeCopied.getTransactionList();
+
+        CollectionUtil.requireAllNonNull(txns);
+        transactionList.setAll(txns);
     }
 
     /**

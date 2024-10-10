@@ -8,6 +8,7 @@ import spleetwaise.address.commons.core.LogsCenter;
 import spleetwaise.address.logic.parser.exceptions.ParseException;
 import spleetwaise.transaction.logic.commands.AddCommand;
 import spleetwaise.transaction.logic.commands.Command;
+import spleetwaise.transaction.logic.commands.ListCommand;
 
 /**
  * Parses user input.
@@ -45,6 +46,8 @@ public class TransactionParser {
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
         default:
             return null;
         }

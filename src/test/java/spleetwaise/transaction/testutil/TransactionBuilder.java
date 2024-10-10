@@ -12,11 +12,12 @@ import spleetwaise.transaction.model.transaction.Transaction;
  */
 public class TransactionBuilder {
 
+    public static final String DEFAULT_AMOUNT = "+12.3";
+    public static final String DEFAULT_DESCRIPTION = "Test";
+    public static final String DEFAULT_DATE = "01012024";
     private static final Person DEFAULT_PERSON = TypicalPersons.ALICE;
     private static final String DEFAULT_POSITIVE_AMOUNT = "+1.23";
     private static final String DEFAULT_NEGATIVE_AMOUNT = "-1.23";
-    private static final String DEFAULT_DESCRIPTION = "description";
-    private static final String DEFAULT_DATE = "01012024";
 
     private Person person;
     private Amount amount;
