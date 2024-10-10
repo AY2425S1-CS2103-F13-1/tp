@@ -14,6 +14,7 @@ import spleetwaise.address.model.AddressBook;
 import spleetwaise.address.model.ReadOnlyAddressBook;
 import spleetwaise.address.model.UserPrefs;
 import spleetwaise.address.testutil.TypicalPersons;
+import spleetwaise.transaction.storage.JsonTransactionBookStorage;
 
 public class StorageManagerTest {
 
@@ -26,7 +27,9 @@ public class StorageManagerTest {
     public void setUp() {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonTransactionBookStorage transactionBookStorage = new JsonTransactionBookStorage(
+            getTempFilePath("tb"));
+        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, transactionBookStorage);
     }
 
     private Path getTempFilePath(String fileName) {

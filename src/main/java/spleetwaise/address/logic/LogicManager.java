@@ -96,7 +96,7 @@ public class LogicManager implements Logic {
     }
 
     private CommandResult executeAddressBookCommand(spleetwaise.address.logic.commands.Command addressBookCommand)
-        throws SpleetWaiseCommandException {
+            throws SpleetWaiseCommandException {
         CommandResult commandResult = addressBookCommand.execute(addressBookModel);
 
         // Save AddressBook data
@@ -112,7 +112,7 @@ public class LogicManager implements Logic {
     }
 
     private CommandResult executeTransactionCommand(spleetwaise.transaction.logic.commands.Command transactionCommand)
-        throws SpleetWaiseCommandException {
+            throws SpleetWaiseCommandException {
         CommandResult commandResult = transactionCommand.execute(transactionModel);
 
         // Save TransactionBook data
