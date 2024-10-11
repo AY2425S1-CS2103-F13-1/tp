@@ -120,12 +120,12 @@ public class Person {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
-                .add("address", address)
-                .add("tags", tags)
-                .toString();
+            .add("name", name)
+            .add("phone", phone)
+            .add("email", email)
+            .add("address", address)
+            .add("tags", tags)
+            .toString();
     }
 
 }
