@@ -16,7 +16,7 @@ enforced using Checkstyle. The checks are run as part of the CI process.
 
 Developers are recommended to import the [`Intellij IDEA code style XML`](/config/IntelliJ.xml) and [
 `Eclipse XML Profile`](/config/Eclipse.xml) from the `config` folder to IntelliJ IDEA to ensure that the code style is
-consistent across all developers after reformatting.
+consistent across all developers after reformatting. Follow the following steps to import the code style settings:
 
 1. Navigate to `Settings/Preferences` -> `Editor` -> `Code Style` -> `Java`.
 2. Beside scheme, click on the gear icon and select `Import Scheme` -> `Intellij IDEA code style XML`.
@@ -27,6 +27,11 @@ consistent across all developers after reformatting.
 7. Check `Current Scheme` and click `OK` to apply the code style.
 8. To reformat the code, press `Ctrl + Alt + L` on Windows or `Shift + Cmd + Option + L` on macOS – Ensure the option of
    `Optimise Imports` is selected.
+9. If you are prompted with `Settings may be overridden by EditorConfig` in `Settings/Preferences` -> `Editor` ->
+   `Code Style`, click `disable`.
+
+\* If you are using a different IDE, you can refer to the respective IDE's documentation on how to import code style
+settings. But we recommend using IntelliJ IDEA for this project.
 
 ## Build automation
 
