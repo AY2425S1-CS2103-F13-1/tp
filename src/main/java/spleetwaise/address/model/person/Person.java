@@ -84,10 +84,11 @@ public class Person {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Person otherPerson)) {
+        if (!(other instanceof Person)) {
             return false;
         }
 
+        Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)

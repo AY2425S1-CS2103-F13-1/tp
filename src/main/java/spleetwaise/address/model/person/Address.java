@@ -50,10 +50,11 @@ public class Address {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Address otherAddress)) {
+        if (!(other instanceof Address)) {
             return false;
         }
 
+        Address otherAddress = (Address) other;
         return value.equals(otherAddress.value);
     }
 

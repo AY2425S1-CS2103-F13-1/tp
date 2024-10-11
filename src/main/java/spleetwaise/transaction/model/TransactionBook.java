@@ -100,10 +100,11 @@ public class TransactionBook implements ReadOnlyTransactionBook {
             return true;
         }
 
-        if (!(other instanceof TransactionBook otherTransactionBook)) {
+        if (!(other instanceof TransactionBook)) {
             return false;
         }
 
+        TransactionBook otherTransactionBook = (TransactionBook) other;
         return transactionList.equals(otherTransactionBook.transactionList);
     }
 

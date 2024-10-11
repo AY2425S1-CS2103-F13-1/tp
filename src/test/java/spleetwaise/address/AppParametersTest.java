@@ -1,7 +1,8 @@
 package spleetwaise.address;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -50,25 +51,25 @@ public class AppParametersTest {
         AppParameters appParameters = new AppParameters();
 
         // same values -> returns true
-        assertEquals(appParameters, new AppParameters());
+        assertTrue(appParameters.equals(new AppParameters()));
 
         // same object -> returns true
-        assertEquals(appParameters, appParameters);
+        assertTrue(appParameters.equals(appParameters));
 
         // null -> returns false
-        assertNotEquals(null, appParameters);
+        assertFalse(appParameters.equals(null));
 
         // different types -> returns false
-        assertNotEquals(5.0f, appParameters, 0.0);
+        assertFalse(appParameters.equals(5.0f));
 
         // different config path -> returns false
         AppParameters otherAppParameters = new AppParameters();
         otherAppParameters.setConfigPath(Paths.get("configPath"));
-        assertNotEquals(appParameters, otherAppParameters);
+        assertFalse(appParameters.equals(otherAppParameters));
     }
 
     private static class ParametersStub extends Application.Parameters {
-        private final Map<String, String> namedParameters = new HashMap<>();
+        private Map<String, String> namedParameters = new HashMap<>();
 
         @Override
         public List<String> getRaw() {

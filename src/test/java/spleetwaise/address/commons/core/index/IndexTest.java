@@ -1,7 +1,8 @@
 package spleetwaise.address.commons.core.index;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,20 +43,20 @@ public class IndexTest {
         final Index fifthPersonIndex = Index.fromOneBased(5);
 
         // same values -> returns true
-        assertEquals(fifthPersonIndex, Index.fromOneBased(5));
-        assertEquals(fifthPersonIndex, Index.fromZeroBased(4));
+        assertTrue(fifthPersonIndex.equals(Index.fromOneBased(5)));
+        assertTrue(fifthPersonIndex.equals(Index.fromZeroBased(4)));
 
         // same object -> returns true
-        assertEquals(fifthPersonIndex, fifthPersonIndex);
+        assertTrue(fifthPersonIndex.equals(fifthPersonIndex));
 
         // null -> returns false
-        assertNotEquals(null, fifthPersonIndex);
+        assertFalse(fifthPersonIndex.equals(null));
 
         // different types -> returns false
-        assertNotEquals(5.0f, fifthPersonIndex, 0.0);
+        assertFalse(fifthPersonIndex.equals(5.0f));
 
         // different index -> returns false
-        assertNotEquals(fifthPersonIndex, Index.fromOneBased(1));
+        assertFalse(fifthPersonIndex.equals(Index.fromOneBased(1)));
     }
 
     @Test

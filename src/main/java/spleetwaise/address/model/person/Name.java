@@ -52,10 +52,11 @@ public class Name {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Name otherName)) {
+        if (!(other instanceof Name)) {
             return false;
         }
 
+        Name otherName = (Name) other;
         return fullName.equals(otherName.fullName);
     }
 

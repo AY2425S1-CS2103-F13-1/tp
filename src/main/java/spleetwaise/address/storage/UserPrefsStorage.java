@@ -28,7 +28,6 @@ public interface UserPrefsStorage {
 
     /**
      * Saves the given {@link ReadOnlyUserPrefs} to the storage.
-     *
      * @param userPrefs cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */

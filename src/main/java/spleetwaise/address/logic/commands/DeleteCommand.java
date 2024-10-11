@@ -52,10 +52,11 @@ public class DeleteCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteCommand otherDeleteCommand)) {
+        if (!(other instanceof DeleteCommand)) {
             return false;
         }
 
+        DeleteCommand otherDeleteCommand = (DeleteCommand) other;
         return targetIndex.equals(otherDeleteCommand.targetIndex);
     }
 

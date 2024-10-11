@@ -2,7 +2,6 @@ package spleetwaise.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
@@ -95,31 +94,31 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(TypicalPersons.ALICE).withPerson(
-                TypicalPersons.BENSON).build();
+            TypicalPersons.BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
         modelManager = new ModelManager(addressBook, userPrefs);
         ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
-        assertEquals(modelManager, modelManagerCopy);
+        assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
-        assertEquals(modelManager, modelManager);
+        assertTrue(modelManager.equals(modelManager));
 
         // null -> returns false
-        assertNotEquals(null, modelManager);
+        assertFalse(modelManager.equals(null));
 
         // different types -> returns false
-        assertNotEquals(5, modelManager);
+        assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertNotEquals(modelManager, new ModelManager(differentAddressBook, userPrefs));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = TypicalPersons.ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertNotEquals(modelManager, new ModelManager(addressBook, userPrefs));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
@@ -127,6 +126,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertNotEquals(modelManager, new ModelManager(addressBook, differentUserPrefs));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
 }

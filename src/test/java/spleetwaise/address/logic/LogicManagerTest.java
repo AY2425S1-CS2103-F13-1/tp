@@ -34,11 +34,11 @@ public class LogicManagerTest {
 
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
     private static final IOException DUMMY_AD_EXCEPTION = new AccessDeniedException("dummy access denied exception");
-    private final spleetwaise.address.model.Model addressBookModel = new spleetwaise.address.model.ModelManager();
-    private final spleetwaise.transaction.model.Model transactionModel
-            = new spleetwaise.transaction.model.ModelManager();
+
     @TempDir
     public Path temporaryFolder;
+    private spleetwaise.address.model.Model addressBookModel = new spleetwaise.address.model.ModelManager();
+    private spleetwaise.transaction.model.Model transactionModel = new spleetwaise.transaction.model.ModelManager();
     private Logic logic;
 
     @BeforeEach

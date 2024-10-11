@@ -28,7 +28,7 @@ public class VersionTest {
         assertEquals(19, version.getMajor());
         assertEquals(10, version.getMinor());
         assertEquals(20, version.getPatch());
-        assertTrue(version.isEarlyAccess());
+        assertEquals(true, version.isEarlyAccess());
     }
 
     @Test
@@ -54,11 +54,11 @@ public class VersionTest {
         // Tests equality
         one = new Version(0, 0, 0, true);
         another = new Version(0, 0, 0, true);
-        assertEquals(0, one.compareTo(another));
+        assertTrue(one.compareTo(another) == 0);
 
         one = new Version(11, 12, 13, false);
         another = new Version(11, 12, 13, false);
-        assertEquals(0, one.compareTo(another));
+        assertTrue(one.compareTo(another) == 0);
 
         // Tests different patch
         one = new Version(0, 0, 5, false);
@@ -122,15 +122,15 @@ public class VersionTest {
 
         one = new Version(0, 0, 0, false);
         another = new Version(0, 0, 0, false);
-        assertEquals(one, another);
+        assertTrue(one.equals(another));
 
         one = new Version(100, 191, 275, true);
         another = new Version(100, 191, 275, true);
-        assertEquals(one, another);
+        assertTrue(one.equals(another));
     }
 
     private void verifyVersionParsedCorrectly(String versionString,
-                                              int major, int minor, int patch, boolean isEarlyAccess) {
+            int major, int minor, int patch, boolean isEarlyAccess) {
         assertEquals(new Version(major, minor, patch, isEarlyAccess), Version.fromString(versionString));
     }
 }

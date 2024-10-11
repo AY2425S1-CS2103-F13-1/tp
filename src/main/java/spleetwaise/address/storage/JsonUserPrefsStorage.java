@@ -14,7 +14,7 @@ import spleetwaise.address.model.UserPrefs;
  */
 public class JsonUserPrefsStorage implements UserPrefsStorage {
 
-    private final Path filePath;
+    private Path filePath;
 
     public JsonUserPrefsStorage(Path filePath) {
         this.filePath = filePath;
@@ -32,7 +32,6 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
 
     /**
      * Similar to {@link #readUserPrefs()}
-     *
      * @param prefsFilePath location of the data. Cannot be null.
      * @throws DataLoadingException if the file format is not as expected.
      */

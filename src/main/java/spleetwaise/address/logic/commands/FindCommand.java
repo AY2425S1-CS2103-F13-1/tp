@@ -41,10 +41,11 @@ public class FindCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof FindCommand otherFindCommand)) {
+        if (!(other instanceof FindCommand)) {
             return false;
         }
 
+        FindCommand otherFindCommand = (FindCommand) other;
         return predicate.equals(otherFindCommand.predicate);
     }
 

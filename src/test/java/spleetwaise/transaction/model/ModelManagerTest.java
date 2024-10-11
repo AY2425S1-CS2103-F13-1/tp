@@ -2,7 +2,6 @@ package spleetwaise.transaction.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,19 +19,18 @@ import spleetwaise.transaction.model.transaction.Transaction;
 
 public class ModelManagerTest {
 
-    private static final Person testPerson = TypicalPersons.ALICE;
-    private static final Amount testAmount = new Amount("+1.23");
-    private static final Description testDescription = new Description("1");
-    private static final Date testDate = new Date("01012024");
+    private static Person testPerson = TypicalPersons.ALICE;
+    private static Amount testAmount = new Amount("+1.23");
+    private static Description testDescription = new Description("1");
+    private static Date testDate = new Date("01012024");
 
-    private static final Transaction testTxn = new Transaction(testPerson, testAmount, testDescription, testDate);
-    private static final Transaction testTxn2 = new Transaction(testPerson, testAmount, new Description("2"), testDate);
-    private static final Transaction testTxn3 = new Transaction(testPerson, testAmount, new Description("3"), testDate);
+    private static Transaction testTxn = new Transaction(testPerson, testAmount, testDescription, testDate);
+    private static Transaction testTxn2 = new Transaction(testPerson, testAmount, new Description("2"), testDate);
+    private static Transaction testTxn3 = new Transaction(testPerson, testAmount, new Description("3"), testDate);
 
 
-    private final spleetwaise.transaction.model.Model transactionModel
-            = new spleetwaise.transaction.model.ModelManager();
-    private final spleetwaise.address.model.Model addressBookModel = new spleetwaise.address.model.ModelManager();
+    private spleetwaise.transaction.model.Model transactionModel = new spleetwaise.transaction.model.ModelManager();
+    private spleetwaise.address.model.Model addressBookModel = new spleetwaise.address.model.ModelManager();
 
     @Test
     void transactionModelIsNotAddressBookModel() {
@@ -149,7 +147,7 @@ public class ModelManagerTest {
     public void equals_null_returnsFalse() {
         ModelManager manager = new ModelManager();
 
-        assertNotEquals(null, manager);
+        assertFalse(manager.equals(null));
     }
 
     @Test
@@ -159,7 +157,7 @@ public class ModelManagerTest {
         ModelManager manager2 = new ModelManager();
         manager2.addTransaction(testTxn2);
 
-        assertNotEquals(manager1, manager2);
+        assertFalse(manager1.equals(manager2));
     }
 
     @Test
@@ -176,7 +174,7 @@ public class ModelManagerTest {
         Predicate<Transaction> pred2 = (t) -> t.getDescription().equals(new Description("3"));
         manager1.updateFilteredTransactionList(pred2);
 
-        assertNotEquals(manager1, manager2);
+        assertFalse(manager1.equals(manager2));
     }
 
     @Test
@@ -184,13 +182,14 @@ public class ModelManagerTest {
         ModelManager manager1 = new ModelManager();
         manager1.addTransaction(testTxn);
 
-        assertEquals(manager1, manager1);
+        assertTrue(manager1.equals(manager1));
 
         ModelManager manager2 = new ModelManager();
         manager2.addTransaction(testTxn);
 
-        assertEquals(manager1, manager2);
+        assertTrue(manager1.equals(manager2));
     }
+
 
 
 }

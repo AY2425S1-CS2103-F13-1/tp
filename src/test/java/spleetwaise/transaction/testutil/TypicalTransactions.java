@@ -14,8 +14,7 @@ public class TypicalTransactions {
 
     public static final Transaction SEANOWESME =
             new TransactionBuilder().withPerson(TypicalPersons.ALICE).withAmount("+9999999999.99")
-                    .withDescription("Sean owes me a lot for a landed property in Sentosa")
-                    .withDate("10102024")
+                    .withDescription("Sean owes me a lot for a landed property in Sentosa").withDate("10102024")
                     .build();
 
     private TypicalTransactions() {

@@ -17,7 +17,7 @@ import spleetwaise.address.model.tag.Tag;
  */
 public class EditPersonDescriptorBuilder {
 
-    private final EditPersonDescriptor descriptor;
+    private EditPersonDescriptor descriptor;
 
     public EditPersonDescriptorBuilder() {
         descriptor = new EditPersonDescriptor();

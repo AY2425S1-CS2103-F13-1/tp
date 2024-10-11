@@ -2,7 +2,6 @@ package spleetwaise.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
@@ -24,20 +23,20 @@ public class NameContainsKeywordsPredicateTest {
         NameContainsKeywordsPredicate secondPredicate = new NameContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
-        assertEquals(firstPredicate, firstPredicate);
+        assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
         NameContainsKeywordsPredicate firstPredicateCopy = new NameContainsKeywordsPredicate(firstPredicateKeywordList);
-        assertEquals(firstPredicate, firstPredicateCopy);
+        assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
-        assertNotEquals(1, firstPredicate);
+        assertFalse(firstPredicate.equals(1));
 
         // null -> returns false
-        assertNotEquals(null, firstPredicate);
+        assertFalse(firstPredicate.equals(null));
 
         // different person -> returns false
-        assertNotEquals(firstPredicate, secondPredicate);
+        assertFalse(firstPredicate.equals(secondPredicate));
     }
 
     @Test
@@ -66,14 +65,13 @@ public class NameContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
 
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(List.of("Carol"));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
         // Keywords match phone, email and address, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street")
-                .build()));
+                .withEmail("alice@email.com").withAddress("Main Street").build()));
     }
 
     @Test

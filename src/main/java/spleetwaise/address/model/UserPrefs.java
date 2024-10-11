@@ -14,13 +14,12 @@ import spleetwaise.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data", "addressbook.json");
+    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
      */
-    public UserPrefs() {
-    }
+    public UserPrefs() {}
 
     /**
      * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
@@ -64,10 +63,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof UserPrefs otherUserPrefs)) {
+        if (!(other instanceof UserPrefs)) {
             return false;
         }
 
+        UserPrefs otherUserPrefs = (UserPrefs) other;
         return guiSettings.equals(otherUserPrefs.guiSettings)
                 && addressBookFilePath.equals(otherUserPrefs.addressBookFilePath);
     }
@@ -79,10 +79,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public String toString() {
-        String sb = "Gui Settings : " + guiSettings
-                +
-                "\nLocal data file location : " + addressBookFilePath;
-        return sb;
+        StringBuilder sb = new StringBuilder();
+        sb.append("Gui Settings : " + guiSettings);
+        sb.append("\nLocal data file location : " + addressBookFilePath);
+        return sb.toString();
     }
 
 }

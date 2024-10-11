@@ -1,8 +1,6 @@
 package spleetwaise.address.model.person;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -46,18 +44,18 @@ public class PhoneTest {
         Phone phone = new Phone("999");
 
         // same values -> returns true
-        assertEquals(phone, new Phone("999"));
+        assertTrue(phone.equals(new Phone("999")));
 
         // same object -> returns true
-        assertEquals(phone, phone);
+        assertTrue(phone.equals(phone));
 
         // null -> returns false
-        assertNotEquals(null, phone);
+        assertFalse(phone.equals(null));
 
         // different types -> returns false
-        assertNotEquals(5.0f, phone, 0.0);
+        assertFalse(phone.equals(5.0f));
 
         // different values -> returns false
-        assertNotEquals(phone, new Phone("995"));
+        assertFalse(phone.equals(new Phone("995")));
     }
 }

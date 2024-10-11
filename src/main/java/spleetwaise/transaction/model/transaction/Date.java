@@ -44,12 +44,12 @@ public class Date {
         }
     }
 
-    public static Date getNowDate() {
-        return new Date(LocalDate.now().format(VALIDATION_FORMATTER));
-    }
-
     public LocalDate getDate() {
         return date;
+    }
+
+    public static Date getNowDate() {
+        return new Date(LocalDate.now().format(VALIDATION_FORMATTER));
     }
 
     @Override
@@ -63,10 +63,11 @@ public class Date {
             return true;
         }
 
-        if (!(other instanceof Date otherDate)) {
+        if (!(other instanceof Date)) {
             return false;
         }
 
+        Date otherDate = (Date) other;
         return this.date.equals(otherDate.date);
     }
 

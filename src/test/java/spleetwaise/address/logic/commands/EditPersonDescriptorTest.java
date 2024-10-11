@@ -14,56 +14,56 @@ public class EditPersonDescriptorTest {
     public void equals() {
         // same values -> returns true
         EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(CommandTestUtil.DESC_AMY);
-        assertEquals(CommandTestUtil.DESC_AMY, descriptorWithSameValues);
+        Assertions.assertTrue(CommandTestUtil.DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertEquals(CommandTestUtil.DESC_AMY, CommandTestUtil.DESC_AMY);
+        Assertions.assertTrue(CommandTestUtil.DESC_AMY.equals(CommandTestUtil.DESC_AMY));
 
         // null -> returns false
-        Assertions.assertNotEquals(null, CommandTestUtil.DESC_AMY);
+        Assertions.assertFalse(CommandTestUtil.DESC_AMY.equals(null));
 
         // different types -> returns false
-        Assertions.assertNotEquals(5, CommandTestUtil.DESC_AMY);
+        Assertions.assertFalse(CommandTestUtil.DESC_AMY.equals(5));
 
         // different values -> returns false
-        Assertions.assertNotEquals(CommandTestUtil.DESC_AMY, CommandTestUtil.DESC_BOB);
+        Assertions.assertFalse(CommandTestUtil.DESC_AMY.equals(CommandTestUtil.DESC_BOB));
 
         // different name -> returns false
         EditPersonDescriptor editedAmy = new EditPersonDescriptorBuilder(CommandTestUtil.DESC_AMY).withName(
-                CommandTestUtil.VALID_NAME_BOB).build();
-        Assertions.assertNotEquals(CommandTestUtil.DESC_AMY, editedAmy);
+            CommandTestUtil.VALID_NAME_BOB).build();
+        Assertions.assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false
         editedAmy = new EditPersonDescriptorBuilder(CommandTestUtil.DESC_AMY).withPhone(CommandTestUtil.VALID_PHONE_BOB)
-                .build();
-        Assertions.assertNotEquals(CommandTestUtil.DESC_AMY, editedAmy);
+            .build();
+        Assertions.assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
 
         // different email -> returns false
         editedAmy = new EditPersonDescriptorBuilder(CommandTestUtil.DESC_AMY).withEmail(CommandTestUtil.VALID_EMAIL_BOB)
-                .build();
-        Assertions.assertNotEquals(CommandTestUtil.DESC_AMY, editedAmy);
+            .build();
+        Assertions.assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
 
         // different address -> returns false
         editedAmy = new EditPersonDescriptorBuilder(CommandTestUtil.DESC_AMY).withAddress(
-                CommandTestUtil.VALID_ADDRESS_BOB).build();
-        Assertions.assertNotEquals(CommandTestUtil.DESC_AMY, editedAmy);
+            CommandTestUtil.VALID_ADDRESS_BOB).build();
+        Assertions.assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
         editedAmy =
-                new EditPersonDescriptorBuilder(CommandTestUtil.DESC_AMY).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
-                        .build();
-        Assertions.assertNotEquals(CommandTestUtil.DESC_AMY, editedAmy);
+            new EditPersonDescriptorBuilder(CommandTestUtil.DESC_AMY).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+                .build();
+        Assertions.assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
     }
 
     @Test
     public void toStringMethod() {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         String expected = EditPersonDescriptor.class.getCanonicalName() + "{name="
-                + editPersonDescriptor.getName().orElse(null) + ", phone="
-                + editPersonDescriptor.getPhone().orElse(null) + ", email="
-                + editPersonDescriptor.getEmail().orElse(null) + ", address="
-                + editPersonDescriptor.getAddress().orElse(null) + ", tags="
-                + editPersonDescriptor.getTags().orElse(null) + "}";
+            + editPersonDescriptor.getName().orElse(null) + ", phone="
+            + editPersonDescriptor.getPhone().orElse(null) + ", email="
+            + editPersonDescriptor.getEmail().orElse(null) + ", address="
+            + editPersonDescriptor.getAddress().orElse(null) + ", tags="
+            + editPersonDescriptor.getTags().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }

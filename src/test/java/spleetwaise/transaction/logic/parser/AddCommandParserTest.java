@@ -18,12 +18,12 @@ import spleetwaise.transaction.model.transaction.Transaction;
 
 public class AddCommandParserTest {
 
-    private static final Person testPerson = TypicalPersons.ALICE;
-    private static final Amount testAmount = new Amount("+1.23");
-    private static final Description testDescription = new Description("description");
-    private static final Date testDate = new Date("01012024");
+    private static Person testPerson = TypicalPersons.ALICE;
+    private static Amount testAmount = new Amount("+1.23");
+    private static Description testDescription = new Description("description");
+    private static Date testDate = new Date("01012024");
 
-    private final AddCommandParser parser = new AddCommandParser();
+    private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {

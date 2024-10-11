@@ -18,10 +18,10 @@ public class Transaction {
     /**
      * Represents a Transaction in the transaction book.
      *
-     * @param person      The person involved in this transaction.
-     * @param amount      The amount involved in this transaction.
+     * @param person The person involved in this transaction.
+     * @param amount The amount involved in this transaction.
      * @param description The description of the transaction.
-     * @param date        The date the transaction has taken place.
+     * @param date The date the transaction has taken place.
      */
     public Transaction(Person person, Amount amount, Description description, Date date) {
         CollectionUtil.requireAllNonNull(person, amount, description, date);
@@ -68,9 +68,10 @@ public class Transaction {
             return true;
         }
 
-        if (!(other instanceof Transaction otherTransaction)) {
+        if (!(other instanceof Transaction)) {
             return false;
         }
+        Transaction otherTransaction = (Transaction) other;
         return this.person.equals(otherTransaction.getPerson())
                 && this.amount.equals(otherTransaction.getAmount())
                 && this.description.equals(otherTransaction.getDescription())

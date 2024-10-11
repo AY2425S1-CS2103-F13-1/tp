@@ -1,7 +1,9 @@
 package spleetwaise.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,26 +13,26 @@ public class CommandResultTest {
         CommandResult commandResult = new CommandResult("feedback");
 
         // same values -> returns true
-        assertEquals(commandResult, new CommandResult("feedback"));
-        assertEquals(commandResult, new CommandResult("feedback", false, false));
+        assertTrue(commandResult.equals(new CommandResult("feedback")));
+        assertTrue(commandResult.equals(new CommandResult("feedback", false, false)));
 
         // same object -> returns true
-        assertEquals(commandResult, commandResult);
+        assertTrue(commandResult.equals(commandResult));
 
         // null -> returns false
-        assertNotEquals(null, commandResult);
+        assertFalse(commandResult.equals(null));
 
         // different types -> returns false
-        assertNotEquals(0.5f, commandResult, 0.0);
+        assertFalse(commandResult.equals(0.5f));
 
         // different feedbackToUser value -> returns false
-        assertNotEquals(commandResult, new CommandResult("different"));
+        assertFalse(commandResult.equals(new CommandResult("different")));
 
         // different showHelp value -> returns false
-        assertNotEquals(commandResult, new CommandResult("feedback", true, false));
+        assertFalse(commandResult.equals(new CommandResult("feedback", true, false)));
 
         // different exit value -> returns false
-        assertNotEquals(commandResult, new CommandResult("feedback", false, true));
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
     }
 
     @Test

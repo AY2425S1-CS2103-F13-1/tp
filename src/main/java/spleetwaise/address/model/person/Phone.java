@@ -46,10 +46,11 @@ public class Phone {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Phone otherPhone)) {
+        if (!(other instanceof Phone)) {
             return false;
         }
 
+        Phone otherPhone = (Phone) other;
         return value.equals(otherPhone.value);
     }
 

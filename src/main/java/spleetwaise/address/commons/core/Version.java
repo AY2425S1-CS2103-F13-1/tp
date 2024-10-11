@@ -32,26 +32,6 @@ public class Version implements Comparable<Version> {
         this.isEarlyAccess = isEarlyAccess;
     }
 
-    /**
-     * Parses a version number string in the format V1.2.3.
-     *
-     * @param versionString version number string
-     * @return a Version object
-     */
-    @JsonCreator
-    public static Version fromString(String versionString) throws IllegalArgumentException {
-        Matcher versionMatcher = VERSION_PATTERN.matcher(versionString);
-
-        if (!versionMatcher.find()) {
-            throw new IllegalArgumentException(String.format(EXCEPTION_STRING_NOT_VERSION, versionString));
-        }
-
-        return new Version(Integer.parseInt(versionMatcher.group(1)),
-                Integer.parseInt(versionMatcher.group(2)),
-                Integer.parseInt(versionMatcher.group(3)),
-                versionMatcher.group(4) != null);
-    }
-
     public int getMajor() {
         return major;
     }
@@ -66,6 +46,25 @@ public class Version implements Comparable<Version> {
 
     public boolean isEarlyAccess() {
         return isEarlyAccess;
+    }
+
+    /**
+     * Parses a version number string in the format V1.2.3.
+     * @param versionString version number string
+     * @return a Version object
+     */
+    @JsonCreator
+    public static Version fromString(String versionString) throws IllegalArgumentException {
+        Matcher versionMatcher = VERSION_PATTERN.matcher(versionString);
+
+        if (!versionMatcher.find()) {
+            throw new IllegalArgumentException(String.format(EXCEPTION_STRING_NOT_VERSION, versionString));
+        }
+
+        return new Version(Integer.parseInt(versionMatcher.group(1)),
+                Integer.parseInt(versionMatcher.group(2)),
+                Integer.parseInt(versionMatcher.group(3)),
+                versionMatcher.group(4) == null ? false : true);
     }
 
     @JsonValue
@@ -100,10 +99,11 @@ public class Version implements Comparable<Version> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Version otherVersion)) {
+        if (!(other instanceof Version)) {
             return false;
         }
 
+        Version otherVersion = (Version) other;
         return major == otherVersion.major
                 && minor == otherVersion.minor
                 && patch == otherVersion.patch
