@@ -8,6 +8,7 @@ import spleetwaise.address.commons.core.LogsCenter;
 import spleetwaise.address.logic.parser.exceptions.ParseException;
 import spleetwaise.transaction.logic.commands.AddCommand;
 import spleetwaise.transaction.logic.commands.AddTagCommand;
+import spleetwaise.transaction.logic.commands.ClearCommand;
 import spleetwaise.transaction.logic.commands.Command;
 import spleetwaise.transaction.logic.commands.ListCommand;
 import spleetwaise.transaction.logic.commands.RemoveTagCommand;
@@ -21,7 +22,7 @@ public class TransactionParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT =
-        Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+            Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Logger logger = LogsCenter.getLogger(TransactionParser.class);
 
     /**
@@ -55,6 +56,8 @@ public class TransactionParser {
             // TODO create Tag parser
         case RemoveTagCommand.COMMAND_WORD:
             //return new AddTagCommand();
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
         default:
             return null;
         }
