@@ -44,12 +44,12 @@ public class Date {
         }
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
     public static Date getNowDate() {
         return new Date(LocalDate.now().format(VALIDATION_FORMATTER));
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 
     @Override
