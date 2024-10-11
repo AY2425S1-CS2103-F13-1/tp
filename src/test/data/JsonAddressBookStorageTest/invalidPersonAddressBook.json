@@ -1,5 +1,6 @@
 {
   "persons": [ {
+    "id" : "29705d8f-6a2b-4de3-8b86-e8efb3f2215f",
     "name": "Person with invalid name field: Ha!ns Mu@ster",
     "phone": "9482424",
     "email": "hans@example.com",
