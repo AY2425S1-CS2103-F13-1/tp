@@ -8,6 +8,26 @@ title: DevOps guide
 
 --------------------------------------------------------------------------------------------------------------------
 
+## Code Formatting
+
+This project uses the [Java coding standard (basic)
+](https://se-education.org/guides/conventions/java/basic.html) and the Google Java style guide. The code style is
+enforced using Checkstyle. The checks are run as part of the CI process.
+
+Developers are recommended to import the [`Intellij IDEA code style XML`](/config/IntelliJ.xml) and [
+`Eclipse XML Profile`](/config/Eclipse.xml) from the `config` folder to IntelliJ IDEA to ensure that the code style is
+consistent across all developers after reformatting.
+
+1. Navigate to `Settings/Preferences` -> `Editor` -> `Code Style` -> `Java`.
+2. Beside scheme, click on the gear icon and select `Import Scheme` -> `Intellij IDEA code style XML`.
+3. Select the `IntelliJ.xml` file from the `config` folder.
+4. Click `OK` to apply the code style.
+5. Beside scheme, click on the gear icon and select `Import Scheme` -> `Eclipse XML Profile`.
+6. Select the `Eclipse.xml` file from the `config` folder.
+7. Check `Current Scheme` and click `OK` to apply the code style.
+8. To reformat the code, press `Ctrl + Alt + L` on Windows or `Shift + Cmd + Option + L` on macOS – Ensure the option of
+   `Optimise Imports` is selected.
+
 ## Build automation
 
 This project uses Gradle for **build automation and dependency management**. **You are recommended to read [this Gradle Tutorial from the se-edu/guides](https://se-education.org/guides/tutorials/gradle.html)**.
