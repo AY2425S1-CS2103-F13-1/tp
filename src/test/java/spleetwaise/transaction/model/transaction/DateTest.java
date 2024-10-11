@@ -2,6 +2,7 @@ package spleetwaise.transaction.model.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -53,17 +54,17 @@ public class DateTest {
     public void equals_validArgument_returnsTrue() {
         Date date1 = new Date("02012024");
         Date date2 = new Date("02012024");
-        assertTrue(date1.equals(date2));
+        assertEquals(date1, date2);
 
-        assertTrue(date1.equals(date1));
+        assertEquals(date1, date1);
     }
 
     @Test
     public void equals_invalidArgument_returnsFalse() {
         Date date1 = new Date("01012024");
         Date date2 = new Date("02012024");
-        assertFalse(date1.equals(date2));
+        assertNotEquals(date1, date2);
 
-        assertFalse(date1.equals(null));
+        assertNotEquals(null, date1);
     }
 }

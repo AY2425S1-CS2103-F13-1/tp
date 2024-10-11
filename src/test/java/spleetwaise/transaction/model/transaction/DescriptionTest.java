@@ -1,6 +1,8 @@
 package spleetwaise.transaction.model.transaction;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -49,9 +51,9 @@ public class DescriptionTest {
         Description desc1 = new Description("same");
         Description desc2 = new Description("same");
 
-        assertTrue(desc1.equals(desc2));
+        assertEquals(desc1, desc2);
 
-        assertTrue(desc1.equals(desc1));
+        assertEquals(desc1, desc1);
     }
 
     @Test
@@ -59,8 +61,8 @@ public class DescriptionTest {
         Description desc1 = new Description("same");
         Description desc2 = new Description("not same");
 
-        assertFalse(desc1.equals(desc2));
+        assertNotEquals(desc1, desc2);
 
-        assertFalse(desc1.equals(null));
+        assertNotEquals(null, desc1);
     }
 }

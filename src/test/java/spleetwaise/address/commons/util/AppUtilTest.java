@@ -33,6 +33,6 @@ public class AppUtilTest {
     public void checkArgument_falseWithErrorMessage_throwsIllegalArgumentException() {
         String errorMessage = "error message";
         Assert.assertThrows(IllegalArgumentException.class, errorMessage, () ->
-            AppUtil.checkArgument(false, errorMessage));
+                AppUtil.checkArgument(false, errorMessage));
     }
 }

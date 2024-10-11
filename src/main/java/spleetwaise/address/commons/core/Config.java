@@ -41,11 +41,10 @@ public class Config {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Config)) {
+        if (!(other instanceof Config otherConfig)) {
             return false;
         }
 
-        Config otherConfig = (Config) other;
         return Objects.equals(logLevel, otherConfig.logLevel)
                 && Objects.equals(userPrefsFilePath, otherConfig.userPrefsFilePath);
     }

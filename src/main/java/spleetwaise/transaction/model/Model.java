@@ -9,18 +9,20 @@ import spleetwaise.transaction.model.transaction.Transaction;
  * The API of the transaction component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Transaction> PREDICATE_SHOW_ALL_TXNS = unused -> true;
-
     /**
-     * Replaces address book data with the data in {@code replacementBook}.
+     * {@code Predicate} that always evaluate to true
      */
-    void setTransactionBook(ReadOnlyTransactionBook replacementBook);
+    Predicate<Transaction> PREDICATE_SHOW_ALL_TXNS = unused -> true;
 
     /**
      * Returns the transaction book.
      */
     ReadOnlyTransactionBook getTransactionBook();
+
+    /**
+     * Replaces address book data with the data in {@code replacementBook}.
+     */
+    void setTransactionBook(ReadOnlyTransactionBook replacementBook);
 
     /**
      * Adds the given transaction.

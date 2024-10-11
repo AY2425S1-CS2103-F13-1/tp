@@ -43,11 +43,10 @@ public class Description {
             return true;
         }
 
-        if (!(other instanceof Description)) {
+        if (!(other instanceof Description otherDescription)) {
             return false;
         }
 
-        Description otherDescription = (Description) other;
         return description.equals(otherDescription.description);
     }
 

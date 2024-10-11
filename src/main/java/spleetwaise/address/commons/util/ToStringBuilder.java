@@ -30,7 +30,7 @@ public class ToStringBuilder {
     /**
      * Adds a field name/value pair to the output string.
      *
-     * @param fieldName The name of the field.
+     * @param fieldName  The name of the field.
      * @param fieldValue The value of the field.
      * @return A reference to this {@code ToStringBuilder} object, allowing method calls to be chained.
      */
@@ -48,6 +48,6 @@ public class ToStringBuilder {
      */
     @Override
     public String toString() {
-        return stringBuilder.toString() + OBJECT_SUFFIX;
+        return stringBuilder + OBJECT_SUFFIX;
     }
 }

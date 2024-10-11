@@ -2,6 +2,7 @@ package spleetwaise.transaction.model.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -81,16 +82,16 @@ public class AmountTest {
     public void equals_validArgument_returnsTrue() {
         Amount amt1 = new Amount("+100");
         Amount amt2 = new Amount("+100.0");
-        assertTrue(amt1.equals(amt2));
+        assertEquals(amt1, amt2);
 
         amt1 = new Amount("+100");
-        assertTrue(amt1.equals(amt1));
+        assertEquals(amt1, amt1);
     }
 
     @Test
     public void equals_invalidArgument_returnsFalse() {
         Amount amt1 = new Amount("+100");
-        assertFalse(amt1.equals(null));
+        assertNotEquals(null, amt1);
     }
 
     @Test
@@ -101,7 +102,6 @@ public class AmountTest {
         amt1 = new Amount("-0.12");
         assertEquals("-0.12", amt1.toString());
     }
-
 
 
 }

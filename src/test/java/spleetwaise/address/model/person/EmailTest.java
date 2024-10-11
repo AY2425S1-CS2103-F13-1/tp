@@ -1,6 +1,8 @@
 package spleetwaise.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -72,18 +74,18 @@ public class EmailTest {
         Email email = new Email("valid@email");
 
         // same values -> returns true
-        assertTrue(email.equals(new Email("valid@email")));
+        assertEquals(email, new Email("valid@email"));
 
         // same object -> returns true
-        assertTrue(email.equals(email));
+        assertEquals(email, email);
 
         // null -> returns false
-        assertFalse(email.equals(null));
+        assertNotEquals(null, email);
 
         // different types -> returns false
-        assertFalse(email.equals(5.0f));
+        assertNotEquals(5.0f, email, 0.0);
 
         // different values -> returns false
-        assertFalse(email.equals(new Email("other.valid@email")));
+        assertNotEquals(email, new Email("other.valid@email"));
     }
 }

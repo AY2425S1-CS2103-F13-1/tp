@@ -9,6 +9,7 @@ public class TransactionUtil {
 
     /**
      * Retrieves a test add transaction command.
+     *
      * @return A test add transaction command.
      */
     public static String getAddCommand() {
