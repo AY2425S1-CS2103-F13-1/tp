@@ -51,4 +51,12 @@ public class JsonAdaptedAmount {
         }
         return new Amount(amount);
     }
+    /**
+     * Retrieves the amount as a string.
+     *
+     * @return The amount
+     */
+    public String getAmount() {
+        return amount;
+    }
 }

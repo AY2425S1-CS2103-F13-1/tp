@@ -10,7 +10,10 @@ import spleetwaise.address.commons.util.AppUtil;
  */
 public class Description {
 
-    private static final int MAX_LENGTH = 120;
+    /**
+     * Maximum length of description
+     */
+    public static final int MAX_LENGTH = 120;
 
     public static final String MESSAGE_CONSTRAINTS = "Description should not be blank or more than " + MAX_LENGTH
             + " characters.";

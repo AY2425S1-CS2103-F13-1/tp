@@ -30,7 +30,6 @@ import spleetwaise.commons.IdUtil;
 import spleetwaise.commons.exceptions.SpleetWaiseCommandException;
 import spleetwaise.transaction.logic.parser.ParserUtil;
 import spleetwaise.transaction.model.ReadOnlyTransactionBook;
-import spleetwaise.transaction.model.transaction.TransactionIdUtil;
 import spleetwaise.transaction.storage.JsonTransactionBookStorage;
 
 public class LogicManagerTest {
