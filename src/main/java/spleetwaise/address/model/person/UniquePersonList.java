@@ -45,12 +45,14 @@ public class UniquePersonList implements Iterable<Person> {
         return internalList.stream().anyMatch(toCheck::hasSameId);
     }
 
+    /**
+     * Searches for a person by id and returns an optional Person
+     */
     public Optional<Person> getPersonById(String id) {
         requireNonNull(id);
-        return Optional.ofNullable(internalList.stream()
+        return internalList.stream()
                 .filter(person -> id.equals(person.getId()))
-                .findFirst()
-                .orElse(null));
+                .findFirst();
     }
 
     /**
