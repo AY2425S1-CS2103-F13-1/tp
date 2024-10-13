@@ -22,6 +22,8 @@ import spleetwaise.address.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_ID_AMY = "29705d8f-6a2b-4de3-8b86-e8efb3f2215f1";
+    public static final String VALID_ID_BOB = "3929a136-823a-4806-af62-e96b241167b52";
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
