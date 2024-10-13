@@ -9,6 +9,9 @@ import static spleetwaise.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static spleetwaise.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static spleetwaise.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import spleetwaise.address.testutil.Assert;
@@ -97,5 +100,13 @@ public class PersonTest {
             + ", email=" + TypicalPersons.ALICE.getEmail() + ", address=" + TypicalPersons.ALICE.getAddress()
             + ", tags=" + TypicalPersons.ALICE.getTags() + "}";
         assertEquals(expected, TypicalPersons.ALICE.toString());
+    }
+
+    @Test
+    public void hashCodeMethod() {
+        Set s1 = new HashSet<Person>();
+        s1.add(TypicalPersons.ALICE);
+        assertEquals(false, s1.contains(TypicalPersons.BOB));
+        assertEquals(true, s1.contains(TypicalPersons.ALICE));
     }
 }
