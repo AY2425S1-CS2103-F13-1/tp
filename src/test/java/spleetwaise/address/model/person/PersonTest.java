@@ -136,7 +136,7 @@ public class PersonTest {
 
     @Test
     public void hashCodeMethod() {
-        Set s1 = new HashSet<Person>();
+        Set<Person> s1 = new HashSet<>();
         s1.add(TypicalPersons.ALICE);
         assertFalse(s1.contains(TypicalPersons.BOB));
         assertTrue(s1.contains(TypicalPersons.ALICE));
