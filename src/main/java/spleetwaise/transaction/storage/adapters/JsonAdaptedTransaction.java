@@ -1,15 +1,17 @@
 package spleetwaise.transaction.storage.adapters;
 
+import java.util.Optional;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import spleetwaise.address.commons.exceptions.IllegalValueException;
 import spleetwaise.address.model.person.Person;
-import spleetwaise.address.storage.JsonAdaptedPerson;
 import spleetwaise.transaction.model.transaction.Amount;
 import spleetwaise.transaction.model.transaction.Date;
 import spleetwaise.transaction.model.transaction.Description;
 import spleetwaise.transaction.model.transaction.Transaction;
+import spleetwaise.transaction.storage.StorageUtil;
 
 /**
  * Adapter for serializing and deserializing Transaction objects into JSON.
@@ -17,15 +19,16 @@ import spleetwaise.transaction.model.transaction.Transaction;
 public class JsonAdaptedTransaction {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Transaction's %s field is missing!";
+    public static final String PERSON_ID_NOT_FOUND = "Person with id %s not found!";
 
     /**
      * The unique identifier of the transaction.
      */
     private final String id;
     /**
-     * The person involved in the transaction.
+     * Id of the person involved in the transaction.
      */
-    private final JsonAdaptedPerson person;
+    private final String personId;
     /**
      * The amount of money transferred.
      */
@@ -47,13 +50,13 @@ public class JsonAdaptedTransaction {
     @JsonCreator
     public JsonAdaptedTransaction(
             @JsonProperty("id") String id,
-            @JsonProperty("person") JsonAdaptedPerson person,
+            @JsonProperty("personId") String personId,
             @JsonProperty("amount") JsonAdaptedAmount amount,
             @JsonProperty("description") String description,
             @JsonProperty("date") String date
     ) {
         this.id = id;
-        this.person = person;
+        this.personId = personId;
         this.amount = amount;
         this.description = description;
         this.date = date;
@@ -66,7 +69,7 @@ public class JsonAdaptedTransaction {
      */
     public JsonAdaptedTransaction(Transaction transaction) {
         this.id = transaction.getId();
-        this.person = new JsonAdaptedPerson(transaction.getPerson());
+        this.personId = transaction.getPerson().getId();
         this.amount = new JsonAdaptedAmount(transaction.getAmount());
         this.description = transaction.getDescription().toString();
         this.date = transaction.getDate().getDate().format(Date.VALIDATION_FORMATTER);
@@ -79,15 +82,6 @@ public class JsonAdaptedTransaction {
      */
     public String getId() {
         return id;
-    }
-
-    /**
-     * Retrieves the person involved in the transaction.
-     *
-     * @return The person involved in the transaction
-     */
-    public JsonAdaptedPerson getPerson() {
-        return person;
     }
 
     /**
@@ -133,8 +127,8 @@ public class JsonAdaptedTransaction {
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "id"));
         }
-        if (person == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Person.class.getSimpleName()));
+        if (personId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "personId"));
         }
         if (amount == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
@@ -155,7 +149,13 @@ public class JsonAdaptedTransaction {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
 
-        p = person.toModelType();
+        Optional<Person> opPerson = StorageUtil.getPerson(personId);
+
+        if (opPerson.isEmpty()) {
+            throw new IllegalValueException(String.format(PERSON_ID_NOT_FOUND, personId));
+        }
+
+        p = opPerson.get();
         a = amount.toModelType();
         d = new Description(description);
         dt = new Date(date);

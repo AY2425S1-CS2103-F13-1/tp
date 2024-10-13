@@ -20,6 +20,7 @@ import spleetwaise.address.storage.Storage;
 import spleetwaise.commons.exceptions.SpleetWaiseCommandException;
 import spleetwaise.transaction.logic.parser.ParserUtil;
 import spleetwaise.transaction.logic.parser.TransactionParser;
+import spleetwaise.transaction.storage.StorageUtil;
 
 /**
  * The main LogicManager of the app.
@@ -29,7 +30,7 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_FORMAT = "Could not save data due to the following error: %s";
 
     public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
-        "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
+            "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -42,14 +43,20 @@ public class LogicManager implements Logic {
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
      */
-    public LogicManager(spleetwaise.address.model.Model addressBookModel,
-        spleetwaise.transaction.model.Model transactionModel, Storage storage) {
+    public LogicManager(
+            spleetwaise.address.model.Model addressBookModel,
+            spleetwaise.transaction.model.Model transactionModel, Storage storage
+    ) {
         this.addressBookModel = addressBookModel;
         this.transactionModel = transactionModel;
         this.storage = storage;
+
         addressBookParser = new AddressBookParser();
         transactionParser = new TransactionParser();
+
+        // Pass models into Util classes
         ParserUtil.setAddressBookModel(addressBookModel);
+        StorageUtil.setAddressBookModel(addressBookModel);
     }
 
     @Override
