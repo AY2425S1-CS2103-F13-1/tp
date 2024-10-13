@@ -77,6 +77,9 @@ public class PersonTest {
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
         editedBob = new PersonBuilder(TypicalPersons.BOB).withName(nameWithTrailingSpaces).build();
         assertFalse(TypicalPersons.BOB.isSamePerson(editedBob));
+
+        // pass in null -> throws error
+        assertFalse(TypicalPersons.BOB.isSamePerson(null));
     }
 
     @Test
