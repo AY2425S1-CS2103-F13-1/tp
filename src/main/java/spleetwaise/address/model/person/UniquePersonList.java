@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,11 +13,11 @@ import spleetwaise.address.model.person.exceptions.DuplicatePersonException;
 import spleetwaise.address.model.person.exceptions.PersonNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A list of persons that enforces uniqueness between its elements and does not allow nulls. A person is considered
+ * unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of persons uses
+ * Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is unique in terms of
+ * identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so as to ensure that
+ * the person with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -44,9 +45,16 @@ public class UniquePersonList implements Iterable<Person> {
         return internalList.stream().anyMatch(toCheck::hasSameId);
     }
 
+    public Optional<Person> getPersonById(String id) {
+        requireNonNull(id);
+        return Optional.ofNullable(internalList.stream()
+                .filter(person -> id.equals(person.getId()))
+                .findFirst()
+                .orElse(null));
+    }
+
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a person to the list. The person must not already exist in the list.
      */
     public void add(Person toAdd) {
         requireNonNull(toAdd);
@@ -57,8 +65,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the list.
+     * Replaces the person {@code target} in the list with {@code editedPerson}. {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
     public void setPerson(Person target, Person editedPerson) {
@@ -77,8 +84,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent person from the list. The person must exist in the list.
      */
     public void remove(Person toRemove) {
         requireNonNull(toRemove);
@@ -93,8 +99,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code persons}. {@code persons} must not contain duplicate persons.
      */
     public void setPersons(List<Person> persons) {
         CollectionUtil.requireAllNonNull(persons);

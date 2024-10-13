@@ -1,6 +1,7 @@
 package spleetwaise.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -84,4 +85,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+
+    /**
+     * Searches for a person with the given ID
+     */
+    Optional<Person> getPersonById(String id);
 }
