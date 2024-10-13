@@ -123,6 +123,9 @@ public class PersonTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(TypicalPersons.ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertNotEquals(TypicalPersons.ALICE, editedAlice);
+
+        // pass in null -> returns false
+        assertNotEquals(null, TypicalPersons.ALICE);
     }
 
     @Test
