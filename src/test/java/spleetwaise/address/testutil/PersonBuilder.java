@@ -10,13 +10,14 @@ import spleetwaise.address.model.person.Person;
 import spleetwaise.address.model.person.Phone;
 import spleetwaise.address.model.tag.Tag;
 import spleetwaise.address.model.util.SampleDataUtil;
+import spleetwaise.commons.IdUtil;
 
 /**
  * A utility class to help with building Person objects.
  */
 public class PersonBuilder {
 
-    public static final String DEFAULT_ID = "test-uuid-1234-5678";
+    public static final String DEFAULT_ID = IdUtil.getId();
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
