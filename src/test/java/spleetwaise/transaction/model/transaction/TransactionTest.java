@@ -14,7 +14,7 @@ import spleetwaise.address.testutil.TypicalPersons;
 public class TransactionTest {
 
     private static Person testPerson = TypicalPersons.ALICE;
-    private static Amount testAmount = new Amount("+1.23");
+    private static Amount testAmount = new Amount("1.23");
     private static Description testDescription = new Description("description");
     private static Date testDate = new Date("01012024");
 
@@ -76,7 +76,7 @@ public class TransactionTest {
     public void toString_success() {
         Transaction txn1 = new Transaction(testPerson, testAmount, testDescription, testDate);
 
-        assertEquals(String.format("[%s] Alice Pauline(94351253): description on 01/01/2024 for $+1.23", txn1.getId()),
+        assertEquals(String.format("[%s] Alice Pauline(94351253): description on 01/01/2024 for $1.23", txn1.getId()),
                 txn1.toString());
     }
 

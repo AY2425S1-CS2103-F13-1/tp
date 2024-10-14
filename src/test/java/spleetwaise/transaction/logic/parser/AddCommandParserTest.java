@@ -19,7 +19,7 @@ import spleetwaise.transaction.model.transaction.Transaction;
 public class AddCommandParserTest {
 
     private static Person testPerson = TypicalPersons.ALICE;
-    private static Amount testAmount = new Amount("+1.23");
+    private static Amount testAmount = new Amount("1.23");
     private static Description testDescription = new Description("description");
     private static Date testDate = new Date("01012024");
 
@@ -31,7 +31,7 @@ public class AddCommandParserTest {
         addressBookModel.addPerson(testPerson);
         ParserUtil.setAddressBookModel(addressBookModel);
 
-        String userInput = " p/94351253 amt/+1.23 desc/description";
+        String userInput = " p/94351253 amt/1.23 desc/description";
         Transaction txn = new Transaction(testPerson, testAmount, testDescription);
         assertParseSuccess(parser, userInput, new AddCommand(txn));
     }
@@ -42,7 +42,7 @@ public class AddCommandParserTest {
         addressBookModel.addPerson(testPerson);
         ParserUtil.setAddressBookModel(addressBookModel);
 
-        String userInput = " p/94351253 amt/+1.23 desc/description date/01012024";
+        String userInput = " p/94351253 amt/1.23 desc/description date/01012024";
         Transaction txn = new Transaction(testPerson, testAmount, testDescription, testDate);
         assertParseSuccess(parser, userInput, new AddCommand(txn));
     }
@@ -52,7 +52,7 @@ public class AddCommandParserTest {
         ModelManager addressBookModel = new ModelManager();
         ParserUtil.setAddressBookModel(addressBookModel);
 
-        String userInput = " p/94351253 amt/+1.23 desc/description date/01012024";
+        String userInput = " p/94351253 amt/1.23 desc/description date/01012024";
         assertParseFailure(parser, userInput, Phone.MESSAGE_CONSTRAINTS);
     }
 
@@ -62,7 +62,7 @@ public class AddCommandParserTest {
         addressBookModel.addPerson(testPerson);
         ParserUtil.setAddressBookModel(addressBookModel);
 
-        String userInput = " p/94351253 amt/+1.234 desc/description date/01012024";
+        String userInput = " p/94351253 amt/1.234 desc/description date/01012024";
         assertParseFailure(parser, userInput, Amount.MESSAGE_CONSTRAINTS);
     }
 
@@ -72,7 +72,7 @@ public class AddCommandParserTest {
         addressBookModel.addPerson(testPerson);
         ParserUtil.setAddressBookModel(addressBookModel);
 
-        String userInput = " p/94351253 amt/+1.23 desc/ date/01012024";
+        String userInput = " p/94351253 amt/1.23 desc/ date/01012024";
         assertParseFailure(parser, userInput, Description.MESSAGE_CONSTRAINTS);
     }
 
@@ -82,7 +82,7 @@ public class AddCommandParserTest {
         addressBookModel.addPerson(testPerson);
         ParserUtil.setAddressBookModel(addressBookModel);
 
-        String userInput = " p/94351253 amt/+1.23 desc/test date/2024";
+        String userInput = " p/94351253 amt/1.23 desc/test date/2024";
         assertParseFailure(parser, userInput, Date.MESSAGE_CONSTRAINTS);
     }
 

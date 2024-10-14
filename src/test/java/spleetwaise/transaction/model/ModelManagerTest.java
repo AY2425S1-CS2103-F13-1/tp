@@ -20,7 +20,7 @@ import spleetwaise.transaction.model.transaction.Transaction;
 public class ModelManagerTest {
 
     private static Person testPerson = TypicalPersons.ALICE;
-    private static Amount testAmount = new Amount("+1.23");
+    private static Amount testAmount = new Amount("1.23");
     private static Description testDescription = new Description("1");
     private static Date testDate = new Date("01012024");
 

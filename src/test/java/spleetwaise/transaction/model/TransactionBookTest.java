@@ -21,7 +21,7 @@ import spleetwaise.transaction.model.transaction.exceptions.DuplicateTransaction
 public class TransactionBookTest {
 
     private static Person testPerson = TypicalPersons.ALICE;
-    private static Amount testAmount = new Amount("+1.23");
+    private static Amount testAmount = new Amount("1.23");
     private static Description testDescription = new Description("description");
     private static Date testDate = new Date("01012024");
 

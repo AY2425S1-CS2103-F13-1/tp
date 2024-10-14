@@ -13,6 +13,6 @@ public class TransactionUtil {
      */
     public static String getAddCommand() {
         // Using TypicalPerson.ALICE contact details
-        return AddCommand.COMMAND_WORD + " p/94351253 amt/+12.3 desc/Test";
+        return AddCommand.COMMAND_WORD + " p/94351253 amt/12.3 desc/Test";
     }
 }
