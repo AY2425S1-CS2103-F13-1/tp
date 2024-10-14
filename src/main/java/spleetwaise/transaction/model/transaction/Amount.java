@@ -14,12 +14,13 @@ import spleetwaise.address.commons.util.AppUtil;
 public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Amount should only contain digits up to 2 decimal points delimited by . and prefixed with +/-";
+            "Amount should only contain digits up to 2 decimal points delimited by . and prefixed with - for negative"
+                    + " amounts";
 
     /*
      * The first character of amount must be + or - and only allow precision up to 2 decimal places
      */
-    public static final String VALIDATION_REGEX = "^(\\+|\\-)([\\d]+$|[\\d]+\\.[\\d]{1,2}$)";
+    public static final String VALIDATION_REGEX = "^(\\-)?([\\d]+$|[\\d]+\\.[\\d]{1,2}$)";
 
     private static final int MAX_DECIMAL_PLACES = 2;
 
@@ -56,8 +57,7 @@ public class Amount {
 
     @Override
     public String toString() {
-        String addPrefix = isNegative() ? "" : "+";
-        return String.format("%s%.2f", addPrefix, amount);
+        return String.format("%.2f", amount);
     }
 
     @Override
