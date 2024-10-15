@@ -61,6 +61,9 @@ public class JsonAdaptedTransactionTest {
         jTrans = new JsonAdaptedTransaction(t);
 
         assertEquals(t, jTrans.toModelType());
+        assertEquals(jAmt.getAmount(), jTrans.getAmount().getAmount());
+        assertEquals(VALID_DESCRIPTION, jTrans.getDescription());
+        assertEquals(DateUtil.VALID_DATE, jTrans.getDate());
     }
 
     @Test
