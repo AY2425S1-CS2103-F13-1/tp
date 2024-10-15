@@ -1,6 +1,7 @@
 package spleetwaise.transaction.storage.adapters;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import spleetwaise.address.commons.exceptions.IllegalValueException;
 import spleetwaise.transaction.model.transaction.Amount;
@@ -25,7 +26,7 @@ public class JsonAdaptedAmount {
      * @throws IllegalValueException if the string is not a valid amount
      */
     @JsonCreator
-    public JsonAdaptedAmount(String amount) {
+    public JsonAdaptedAmount(@JsonProperty("amount") String amount) {
         this.amount = amount;
     }
 
@@ -51,6 +52,7 @@ public class JsonAdaptedAmount {
         }
         return new Amount(amount);
     }
+
     /**
      * Retrieves the amount as a string.
      *
