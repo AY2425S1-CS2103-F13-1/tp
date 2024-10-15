@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import spleetwaise.address.model.person.Person;
 import spleetwaise.address.testutil.TypicalPersons;
+import spleetwaise.transaction.testutil.TransactionBuilder;
 
 public class TransactionTest {
 
@@ -73,13 +74,29 @@ public class TransactionTest {
     }
 
     @Test
+    public void hasSameId_validArgument() {
+        TransactionBuilder txnBuilder = new TransactionBuilder();
+        Transaction t1 = txnBuilder.build();
+        Transaction t2 = txnBuilder.withId("420yolo").build();
+        assertFalse(t1.hasSameId(t2));
+    }
+
+    @Test
+    public void hasSameId_null_throwsNullPointerException() {
+        TransactionBuilder txnBuilder = new TransactionBuilder();
+        Transaction t1 = txnBuilder.build();
+        assertThrows(NullPointerException.class, () -> t1.hasSameId(null));
+    }
+
+    @Test
     public void toString_success() {
         Transaction txn1 = new Transaction(testPerson, testAmount, testDescription, testDate);
 
-        assertEquals(String.format("[%s] Alice Pauline(94351253): description on 01/01/2024 for $1.23", txn1.getId()),
-                txn1.toString());
+        assertEquals(
+                String.format("[%s] Alice Pauline(94351253): description on 01/01/2024 for $1.23", txn1.getId()),
+                txn1.toString()
+        );
     }
-
 
 
 }

@@ -2,6 +2,7 @@ package spleetwaise.transaction.testutil;
 
 import spleetwaise.address.model.person.Person;
 import spleetwaise.address.testutil.TypicalPersons;
+import spleetwaise.commons.IdUtil;
 import spleetwaise.transaction.model.transaction.Amount;
 import spleetwaise.transaction.model.transaction.Date;
 import spleetwaise.transaction.model.transaction.Description;
@@ -19,6 +20,7 @@ public class TransactionBuilder {
     private static final String DEFAULT_POSITIVE_AMOUNT = "1.23";
     private static final String DEFAULT_NEGATIVE_AMOUNT = "-1.23";
 
+    private String id;
     private Person person;
     private Amount amount;
     private Description description;
@@ -28,6 +30,7 @@ public class TransactionBuilder {
      * Creates a {@code TransactionBuilder} with the default details.
      */
     public TransactionBuilder() {
+        id = IdUtil.getId();
         person = DEFAULT_PERSON;
         amount = new Amount(DEFAULT_POSITIVE_AMOUNT);
         description = new Description(DEFAULT_DESCRIPTION);
@@ -38,10 +41,20 @@ public class TransactionBuilder {
      * Initializes the TransactionBuilder with the data of {@code transactionToCopy}.
      */
     public TransactionBuilder(Transaction transactionToCopy) {
+        id = transactionToCopy.getId();
         person = transactionToCopy.getPerson();
         amount = transactionToCopy.getAmount();
         description = transactionToCopy.getDescription();
         date = transactionToCopy.getDate();
+    }
+
+
+    /**
+     * Sets the {@code id} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withId(String id) {
+        this.id = id;
+        return this;
     }
 
     /**
@@ -80,6 +93,6 @@ public class TransactionBuilder {
      * Builds and returns the {@code Transaction} object.
      */
     public Transaction build() {
-        return new Transaction(person, amount, description, date);
+        return new Transaction(id, person, amount, description, date);
     }
 }

@@ -1,0 +1,22 @@
+{
+  "transactions": [
+    {
+      "id": "a1314e60-7a23-41cd-8960-d29d4edc841b",
+      "personId": "29705d8f-6a2b-4de3-8b86-e8efb3f2215f",
+      "amount": {
+        "amount": "10.00"
+      },
+      "description": "Paid John for lunchdate/23012024",
+      "date": "13102024"
+    },
+    {
+      "id": "e2c93a3d-44f9-4b4b-8b5f-c5cd6f98e45a",
+      "personId": "29705d8f-6a2b-4de3-8b86-e8efb3f2215f",
+      "amount": {
+        "amount": "invalid amount"
+      },
+      "description": "Purchased office supplies/01022025",
+      "date": "05012025"
+    }
+  ]
+}

@@ -20,7 +20,7 @@ import spleetwaise.transaction.storage.adapters.JsonAdaptedTransaction;
 @JsonRootName(value = "transactionbook")
 class JsonSerializableTransactionBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_TRANSACTIONS = "Transaction list contains duplicate transaction(s).";
 
     private final List<JsonAdaptedTransaction> transactions = new ArrayList<>();
 
@@ -39,7 +39,7 @@ class JsonSerializableTransactionBook {
      */
     public JsonSerializableTransactionBook(ReadOnlyTransactionBook source) {
         transactions.addAll(
-            source.getTransactionList().stream().map(JsonAdaptedTransaction::new).collect(Collectors.toList()));
+                source.getTransactionList().stream().map(JsonAdaptedTransaction::new).collect(Collectors.toList()));
     }
 
     /**
@@ -51,8 +51,8 @@ class JsonSerializableTransactionBook {
         TransactionBook transactionBook = new TransactionBook();
         for (JsonAdaptedTransaction jsonAdaptedTxn : transactions) {
             Transaction txn = jsonAdaptedTxn.toModelType();
-            if (transactionBook.containsTransaction(txn)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            if (transactionBook.containsTransaction(txn) || transactionBook.containsTransactionById(txn)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTIONS);
             }
             transactionBook.addTransaction(txn);
         }

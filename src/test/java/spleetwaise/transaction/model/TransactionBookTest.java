@@ -17,6 +17,7 @@ import spleetwaise.transaction.model.transaction.Date;
 import spleetwaise.transaction.model.transaction.Description;
 import spleetwaise.transaction.model.transaction.Transaction;
 import spleetwaise.transaction.model.transaction.exceptions.DuplicateTransactionException;
+import spleetwaise.transaction.testutil.TransactionBuilder;
 
 public class TransactionBookTest {
 
@@ -55,6 +56,24 @@ public class TransactionBookTest {
         TransactionBook book = new TransactionBook();
 
         assertFalse(book.containsTransaction(testTxn));
+    }
+
+    @Test
+    public void containsTransactionById_isInList_returnsTrue() {
+        TransactionBook book = new TransactionBook();
+        book.addTransaction(testTxn);
+
+        assertTrue(book.containsTransactionById(testTxn));
+    }
+
+    @Test
+    public void containsTransactionById_notInList_returnsFalse() {
+        TransactionBook book = new TransactionBook();
+        book.addTransaction(testTxn);
+        Transaction txn = (new TransactionBuilder(testTxn)).withId("differentID").build();
+
+        assertTrue(book.containsTransaction(txn));
+        assertFalse(book.containsTransactionById(txn));
     }
 
     @Test

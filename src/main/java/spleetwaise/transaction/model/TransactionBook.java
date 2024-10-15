@@ -50,13 +50,21 @@ public class TransactionBook implements ReadOnlyTransactionBook {
     }
 
     /**
-     * Checks if the provided transaction already has a entry in the transaction book.
+     * Checks if the provided transaction already has an entry in the transaction book.
      *
      * @param transaction The transaction to check against.
      * @return true if transaction exists in the book.
      */
     public boolean containsTransaction(Transaction transaction) {
         return transactionList.contains(transaction);
+    }
+
+    /**
+     * Returns true if the list contains a transaction with a matching id
+     */
+    public boolean containsTransactionById(Transaction toCheck) {
+        requireNonNull(toCheck);
+        return transactionList.stream().anyMatch(toCheck::hasSameId);
     }
 
     /**

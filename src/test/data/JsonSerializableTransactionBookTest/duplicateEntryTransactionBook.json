@@ -1,0 +1,22 @@
+{
+  "transactions": [
+    {
+      "id": "a1314e60-7a23-41cd-8960-d29d4edc841b",
+      "personId": "29705d8f-6a2b-4de3-8b86-e8efb3f2215f",
+      "amount": {
+        "amount": "10.00"
+      },
+      "description": "Paid John for lunchdate/23012024",
+      "date": "13102024"
+    },
+    {
+      "id": "a1314e60-7a23-41cd-8960-d29d4edc841b",
+      "personId": "29705d8f-6a2b-4de3-8b86-e8efb3f2215f",
+      "amount": {
+        "amount": "10.00"
+      },
+      "description": "Paid John for lunchdate/23012024",
+      "date": "13102024"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "transactions": [
+    {
+      "id": "a1314e60-7a23-41cd-8960-d29d4edc841b",
+      "personId": "29705d8f-6a2b-4de3-8b86-e8efb3f2215f",
+      "amount": {
+        "amount": "9999999999.99"
+      },
+      "description": "Sean owes me a lot for a landed property in Sentosa",
+      "date": "10102024"
+    },
+    {
+      "id": "e2c93a3d-44f9-4b4b-8b5f-c5cd6f98e45a",
+      "personId": "3929a136-823a-4806-af62-e96b241167b52",
+      "amount": {
+        "amount": "1000000.00"
+      },
+      "description": "Jenkins owed me for a loan of $1,000,000",
+      "date": "11102025"
+    }
+  ]
+}

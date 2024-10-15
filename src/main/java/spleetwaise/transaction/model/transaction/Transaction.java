@@ -1,5 +1,7 @@
 package spleetwaise.transaction.model.transaction;
 
+import static java.util.Objects.requireNonNull;
+
 import spleetwaise.address.commons.util.CollectionUtil;
 import spleetwaise.address.model.person.Person;
 import spleetwaise.commons.IdUtil;
@@ -37,6 +39,7 @@ public class Transaction {
     public Transaction(Person person, Amount amount, Description description, Date date) {
         this(IdUtil.getId(), person, amount, description, date);
     }
+
     public Transaction(Person person, Amount amount, Description description) {
         this(IdUtil.getId(), person, amount, description, Date.getNowDate());
     }
@@ -81,6 +84,14 @@ public class Transaction {
                 && this.amount.equals(otherTransaction.getAmount())
                 && this.description.equals(otherTransaction.getDescription())
                 && this.date.equals(otherTransaction.getDate());
+    }
+
+    /**
+     * Returns true if both txns have the same id.
+     */
+    public boolean hasSameId(Transaction otherTxn) {
+        requireNonNull(otherTxn);
+        return otherTxn.getId().equals(getId());
     }
 
     @Override
