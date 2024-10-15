@@ -12,9 +12,9 @@ import spleetwaise.transaction.storage.adapters.JsonAdaptedAmount;
 
 public class JsonAdaptedAmountTest {
 
-    private static final String VALID_AMOUNT_POSITIVE = "+10.99";
+    private static final String VALID_AMOUNT_POSITIVE = "10.99";
     private static final String VALID_AMOUNT_NEGATIVE = "-10.99";
-    private static final String INVALID_AMOUNT = "10.0";
+    private static final String INVALID_AMOUNT = "10.0099";
 
     @Test
     public void testConstructor_string_positiveAmount() {
@@ -25,7 +25,7 @@ public class JsonAdaptedAmountTest {
     @Test
     public void testConstructor_string_negativeAmount() {
         // Test creating an instance with a valid string amount
-        assertEquals(VALID_AMOUNT_POSITIVE, (new JsonAdaptedAmount(VALID_AMOUNT_NEGATIVE)).getAmount());
+        assertEquals(VALID_AMOUNT_NEGATIVE, (new JsonAdaptedAmount(VALID_AMOUNT_NEGATIVE)).getAmount());
     }
 
     @Test
