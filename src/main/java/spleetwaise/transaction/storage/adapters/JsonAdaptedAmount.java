@@ -35,7 +35,7 @@ public class JsonAdaptedAmount {
      * @param amount the Amount to convert from
      */
     public JsonAdaptedAmount(Amount amount) {
-        this.amount = amount.getAmount().toString();
+        this.amount = amount.toString();
     }
 
     /**
