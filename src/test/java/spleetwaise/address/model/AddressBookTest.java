@@ -2,6 +2,7 @@ package spleetwaise.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static spleetwaise.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static spleetwaise.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -46,8 +47,8 @@ public class AddressBookTest {
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
         Person editedAlice =
-            new PersonBuilder(TypicalPersons.ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+                new PersonBuilder(TypicalPersons.ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+                        .build();
         List<Person> newPersons = Arrays.asList(TypicalPersons.ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPersons);
 
@@ -74,9 +75,23 @@ public class AddressBookTest {
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(TypicalPersons.ALICE);
         Person editedAlice =
-            new PersonBuilder(TypicalPersons.ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+                new PersonBuilder(TypicalPersons.ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+                        .build();
         assertTrue(addressBook.hasPerson(editedAlice));
+    }
+
+    @Test
+    public void hasPersonById_validArg() {
+        addressBook.addPerson(TypicalPersons.ALICE);
+        Person aliceWithDiffId =
+                new PersonBuilder(TypicalPersons.ALICE).withId("420yoloswag").build();
+        assertFalse(addressBook.hasPersonById(aliceWithDiffId));
+        assertTrue(addressBook.hasPersonById(TypicalPersons.ALICE));
+    }
+
+    @Test
+    public void hasPersonById_nullPersonId_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasPersonById(null));
     }
 
     @Test

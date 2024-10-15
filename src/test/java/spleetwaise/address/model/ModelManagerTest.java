@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -87,6 +88,12 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getPersonById() {
+        modelManager.addPerson(TypicalPersons.ALICE);
+        assertEquals(Optional.of(TypicalPersons.ALICE), modelManager.getPersonById(TypicalPersons.ALICE.getId()));
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
@@ -94,7 +101,7 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(TypicalPersons.ALICE).withPerson(
-            TypicalPersons.BENSON).build();
+                TypicalPersons.BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
