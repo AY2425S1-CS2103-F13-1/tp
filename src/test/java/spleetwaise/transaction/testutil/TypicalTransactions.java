@@ -16,6 +16,20 @@ public class TypicalTransactions {
             new TransactionBuilder().withPerson(TypicalPersons.ALICE).withAmount("9999999999.99")
                     .withDescription("Sean owes me a lot for a landed property in Sentosa").withDate("10102024")
                     .build();
+    public static final Transaction BOBOWES =
+            new TransactionBuilder().withPerson(TypicalPersons.BOB).withAmount("1000000.00")
+                    .withDescription("Jenkins owed me for a loan of $1,000,000").withDate("11102025")
+                    .build();
+
+    public static final Transaction CARLBUYING =
+            new TransactionBuilder().withPerson(TypicalPersons.CARL).withAmount("-5000.00")
+                    .withDescription("Chen buying 5,000 shares of my company").withDate("01012024")
+                    .build();
+
+    public static final Transaction DANIELDEBT =
+            new TransactionBuilder().withPerson(TypicalPersons.DANIEL).withAmount("-20000.00")
+                    .withDescription("Karen having debt of $20,000 to me").withDate("01022024")
+                    .build();
 
     private TypicalTransactions() {
     } // prevents instantiation
@@ -32,6 +46,6 @@ public class TypicalTransactions {
     }
 
     public static List<Transaction> getTypicalTransactions() {
-        return new ArrayList<>(List.of(SEANOWESME)); // TODO: Add more default transactions for testing
+        return new ArrayList<>(List.of(SEANOWESME, BOBOWES)); // TODO: Add more default transactions for testing
     }
 }

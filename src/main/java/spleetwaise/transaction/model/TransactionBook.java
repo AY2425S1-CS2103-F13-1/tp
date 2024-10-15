@@ -84,6 +84,14 @@ public class TransactionBook implements ReadOnlyTransactionBook {
         transactionList.add(transaction);
     }
 
+    /**
+     * Removes {@code key} from this {@code TransactionBook}. {@code key} must exist in the transaction book.
+     * @return whether the removal was successful
+     */
+    public boolean removeTransaction(Transaction key) {
+        return transactionList.remove(key);
+    }
+
     @Override
     public ObservableList<Transaction> getTransactionList() {
         return transactionUnmodifiableList;
