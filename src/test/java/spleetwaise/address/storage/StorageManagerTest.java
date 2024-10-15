@@ -13,10 +13,18 @@ import spleetwaise.address.commons.core.GuiSettings;
 import spleetwaise.address.model.AddressBook;
 import spleetwaise.address.model.ReadOnlyAddressBook;
 import spleetwaise.address.model.UserPrefs;
+import spleetwaise.address.model.person.Person;
 import spleetwaise.address.testutil.TypicalPersons;
+import spleetwaise.transaction.model.ReadOnlyTransactionBook;
+import spleetwaise.transaction.model.TransactionBook;
 import spleetwaise.transaction.storage.JsonTransactionBookStorage;
+import spleetwaise.transaction.storage.StorageUtil;
+import spleetwaise.transaction.testutil.TypicalTransactions;
 
 public class StorageManagerTest {
+
+    private static final Person[] TEST_PEOPLE = { TypicalPersons.CARL, TypicalPersons.DANIEL, TypicalPersons.BENSON,
+                                                  TypicalPersons.ALICE, TypicalPersons.BOB };
 
     @TempDir
     public Path testFolder;
@@ -28,8 +36,15 @@ public class StorageManagerTest {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonTransactionBookStorage transactionBookStorage = new JsonTransactionBookStorage(
-            getTempFilePath("tb"));
+                getTempFilePath("tb"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage, transactionBookStorage);
+
+        // Set up StorageUtil for transaction storage
+        spleetwaise.address.model.Model addressBookModel = new spleetwaise.address.model.ModelManager();
+        for (Person p : TEST_PEOPLE) {
+            addressBookModel.addPerson(p);
+        }
+        StorageUtil.setAddressBookModel(addressBookModel);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -68,4 +83,22 @@ public class StorageManagerTest {
         assertNotNull(storageManager.getAddressBookFilePath());
     }
 
+
+    @Test
+    public void transactionBookReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonTransactionBookStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonTransactionBookStorageTest} class.
+         */
+        TransactionBook original = TypicalTransactions.getTypicalTransactionBook();
+        storageManager.saveTransactionBook(original);
+        ReadOnlyTransactionBook retrieved = storageManager.readTransactionBook().get();
+        assertEquals(original, new TransactionBook(retrieved));
+    }
+
+    @Test
+    public void getTransactionBookFilePath() {
+        assertNotNull(storageManager.getTransactionBookFilePath());
+    }
 }
