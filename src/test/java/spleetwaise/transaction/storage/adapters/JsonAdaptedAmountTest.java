@@ -1,4 +1,4 @@
-package spleetwaise.transaction.storage.adpaters;
+package spleetwaise.transaction.storage.adapters;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import spleetwaise.address.commons.exceptions.IllegalValueException;
 import spleetwaise.transaction.model.transaction.Amount;
-import spleetwaise.transaction.storage.adapters.JsonAdaptedAmount;
 
 
 public class JsonAdaptedAmountTest {

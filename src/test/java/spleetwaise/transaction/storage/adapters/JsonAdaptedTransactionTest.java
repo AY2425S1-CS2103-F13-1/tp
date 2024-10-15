@@ -1,4 +1,4 @@
-package spleetwaise.transaction.storage.adpaters;
+package spleetwaise.transaction.storage.adapters;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -16,8 +16,6 @@ import spleetwaise.transaction.model.transaction.Date;
 import spleetwaise.transaction.model.transaction.Description;
 import spleetwaise.transaction.model.transaction.Transaction;
 import spleetwaise.transaction.storage.StorageUtil;
-import spleetwaise.transaction.storage.adapters.JsonAdaptedAmount;
-import spleetwaise.transaction.storage.adapters.JsonAdaptedTransaction;
 import spleetwaise.transaction.testutil.DateUtil;
 
 public class JsonAdaptedTransactionTest {
