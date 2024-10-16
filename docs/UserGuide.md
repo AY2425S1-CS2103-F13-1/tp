@@ -94,23 +94,6 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-### Adding a transcation: `addTxn`
-
-Adds a transaction to the transaction book.
-
-Format: `addTxn p/PHONE_NUMBER amount/AMOUNT desc/TEST [date/DATE]`
-* The `PHONE_NUMBER` refers to the phone number associated to the person had a transaction with.
-* The `AMOUNT` accepts a decimal number with up to 2 decimal places. A `-` can be added as prefix to indicate negative 
-amount.
-* The `DATE` accepts date formatted in the form `DDMMYYYY` i.e.`10102024`.
-
-:bulb: **Tip:** If the transaction happened on the current day, the date parameter can be omitted.
-
-Examples:
-
-* `addTxn p/98765432 amt/12.3 desc/John paid me for dinner`
-* `addTxn p/98765432 amt/-12.3 desc/John owed me date/10102024`
-
 ### Listing all persons : `list`
 
 Shows a list of all persons in the address book.
@@ -176,6 +159,24 @@ Examples:
 Clears all entries from the address book.
 
 Format: `clear`
+
+### Adding a transcation: `addTxn`
+
+Adds a transaction to the transaction book.
+
+Format: `addTxn p/PHONE_NUMBER amount/AMOUNT desc/TEST [date/DATE]`
+
+* The `PHONE_NUMBER` refers to the phone number associated to the person had a transaction with.
+* The `AMOUNT` accepts a decimal number with up to 2 decimal places. A `-` can be added as prefix to indicate negative
+  amount.
+* The `DATE` accepts date formatted in the form `DDMMYYYY` i.e.`10102024`.
+
+:bulb: **Tip:** If the transaction happened on the current day, the date parameter can be omitted.
+
+Examples:
+
+* `addTxn p/98765432 amt/12.3 desc/John paid me for dinner`
+* `addTxn p/98765432 amt/-12.3 desc/John owed me date/10102024`
 
 ### Clearing all entries of TransactionBook : `clearTxn`
 
