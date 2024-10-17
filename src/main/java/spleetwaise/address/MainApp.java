@@ -29,7 +29,10 @@ import spleetwaise.address.storage.StorageManager;
 import spleetwaise.address.storage.UserPrefsStorage;
 import spleetwaise.address.ui.Ui;
 import spleetwaise.address.ui.UiManager;
+import spleetwaise.transaction.model.ReadOnlyTransactionBook;
+import spleetwaise.transaction.model.TransactionBook;
 import spleetwaise.transaction.storage.JsonTransactionBookStorage;
+import spleetwaise.transaction.storage.StorageUtil;
 import spleetwaise.transaction.storage.TransactionBookStorage;
 
 /**
@@ -64,8 +67,12 @@ public class MainApp extends Application {
             new JsonTransactionBookStorage(userPrefs.getTransactionBookFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, transactionBookStorage);
 
-        transactionModel = initTransactionModelManager();
         addressBookModel = initAddressBookModelManager(storage, userPrefs);
+
+        // Pass ab model into StorageUtil
+        StorageUtil.setAddressBookModel(addressBookModel);
+
+        transactionModel = initTransactionModelManager(storage);
 
         logic = new LogicManager(addressBookModel, transactionModel, storage);
 
@@ -98,11 +105,24 @@ public class MainApp extends Application {
         return new ModelManager(initialData, userPrefs);
     }
 
-    /**
-     * TODO: Initialise transaction model by setting up storage items
-     */
-    private spleetwaise.transaction.model.Model initTransactionModelManager() {
-        return new spleetwaise.transaction.model.ModelManager();
+    private spleetwaise.transaction.model.Model initTransactionModelManager(Storage storage) {
+        logger.info("Using data file : " + storage.getTransactionBookFilePath());
+
+        Optional<ReadOnlyTransactionBook> txnBookOptional;
+        ReadOnlyTransactionBook initialData;
+        try {
+            txnBookOptional = storage.readTransactionBook();
+            if (!txnBookOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getTransactionBookFilePath()
+                        + " populated with a sample TransactionBook.");
+            }
+            initialData = txnBookOptional.orElseGet(SampleDataUtil::getSampleTransactionBook);
+        } catch (DataLoadingException e) {
+            logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
+                    + " Will be starting with an empty TransactionBook.");
+            initialData = new TransactionBook();
+        }
+        return new spleetwaise.transaction.model.ModelManager(initialData);
     }
 
     private void initLogging(Config config) {
