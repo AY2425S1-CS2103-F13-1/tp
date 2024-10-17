@@ -30,7 +30,7 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_FORMAT = "Could not save data due to the following error: %s";
 
     public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
-        "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
+            "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -43,8 +43,10 @@ public class LogicManager implements Logic {
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
      */
-    public LogicManager(spleetwaise.address.model.Model addressBookModel,
-                        spleetwaise.transaction.model.Model transactionModel, Storage storage) {
+    public LogicManager(
+            spleetwaise.address.model.Model addressBookModel,
+            spleetwaise.transaction.model.Model transactionModel, Storage storage
+    ) {
         this.addressBookModel = addressBookModel;
         this.transactionModel = transactionModel;
         this.storage = storage;
@@ -69,6 +71,16 @@ public class LogicManager implements Logic {
         }
 
         throw new ParseException(String.format(MESSAGE_UNKNOWN_COMMAND, commandText));
+    }
+
+    public boolean isTransactionCommand(String commandText) {
+        try {
+            spleetwaise.transaction.logic.commands.Command transactionCommand = transactionParser.parseCommand(
+                    commandText);
+            return transactionCommand != null;
+        } catch (ParseException pe) {
+            return false;
+        }
     }
 
     @Override
