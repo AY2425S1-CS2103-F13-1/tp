@@ -65,7 +65,7 @@ public class AddressBookParserTest {
 
         // TODO: Fix this test
         // Tentatively not equal as editCommandParser does not set the id
-        assertNotEquals(person.getId(), command.getDescriptior().getId().orElse(null));
+        assertNotEquals(person.getId(), command.getDescriptor().getId().orElse(null));
     }
 
     @Test

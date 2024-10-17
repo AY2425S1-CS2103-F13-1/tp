@@ -87,7 +87,7 @@ public class EditCommand extends Command {
         return new Person(id, updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark, updatedTags);
     }
 
-    public EditPersonDescriptor getDescriptior() {
+    public EditPersonDescriptor getDescriptor() {
         return editPersonDescriptor;
     }
 

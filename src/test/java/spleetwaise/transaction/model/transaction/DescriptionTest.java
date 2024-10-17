@@ -31,11 +31,11 @@ public class DescriptionTest {
     public void isValidDescription_invalidInput_returnsFalse() {
         assertFalse(Description.isValidDescription(""));
 
-        StringBuilder longStringBulder = new StringBuilder();
+        StringBuilder longStringBuilder = new StringBuilder();
         for (int i = 0; i <= 120; i++) {
-            longStringBulder.append("+");
+            longStringBuilder.append("+");
         }
-        String longString = longStringBulder.toString();
+        String longString = longStringBuilder.toString();
         assertFalse(Description.isValidDescription(longString));
     }
 
