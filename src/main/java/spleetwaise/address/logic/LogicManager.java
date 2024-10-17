@@ -55,9 +55,8 @@ public class LogicManager implements Logic {
         addressBookParser = new AddressBookParser();
         transactionParser = new TransactionParser();
 
-        // Pass models into Util classes
+        // Pass model into ParserUtil class
         ParserUtil.setAddressBookModel(addressBookModel);
-        StorageUtil.setAddressBookModel(addressBookModel);
     }
 
     @Override
