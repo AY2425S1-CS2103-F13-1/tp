@@ -17,6 +17,7 @@ public class Transaction {
     private final Amount amount;
     private final Description description;
     private final Date date;
+    private Tags tags = new Tags();
 
     /**
      * Represents a Transaction in the transaction book.
@@ -62,6 +63,20 @@ public class Transaction {
 
     public Date getDate() {
         return date;
+    }
+
+    public void addTag(String tag) {
+        if (tags.contains(tag)) {
+            // print some sort of error where there is duplicates
+        } else {
+            tags.add(tag);
+        }
+    }
+
+    public void removeTag(String tag) {
+        if (!tags.remove(tag)) {
+            // print some sort of error where there is no such tag that exists
+        }
     }
 
     /**

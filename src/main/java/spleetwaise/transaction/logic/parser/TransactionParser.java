@@ -7,9 +7,11 @@ import java.util.regex.Pattern;
 import spleetwaise.address.commons.core.LogsCenter;
 import spleetwaise.address.logic.parser.exceptions.ParseException;
 import spleetwaise.transaction.logic.commands.AddCommand;
+import spleetwaise.transaction.logic.commands.AddTagCommand;
 import spleetwaise.transaction.logic.commands.ClearCommand;
 import spleetwaise.transaction.logic.commands.Command;
 import spleetwaise.transaction.logic.commands.ListCommand;
+import spleetwaise.transaction.logic.commands.RemoveTagCommand;
 
 /**
  * Parses user input.
@@ -49,6 +51,11 @@ public class TransactionParser {
             return new AddCommandParser().parse(arguments);
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+        case AddTagCommand.COMMAND_WORD:
+            //return new AddTagCommand();
+            // TODO create Tag parser
+        case RemoveTagCommand.COMMAND_WORD:
+            //return new AddTagCommand();
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
         default:
