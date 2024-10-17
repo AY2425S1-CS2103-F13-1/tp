@@ -17,6 +17,7 @@ public class Transaction {
     private final Amount amount;
     private final Description description;
     private final Date date;
+    private Categories cats = new Categories();
 
     /**
      * Represents a Transaction in the transaction book.
@@ -34,6 +35,20 @@ public class Transaction {
         this.amount = amount;
         this.description = description;
         this.date = date;
+    }
+
+    /**
+     * Represents a Transaction in the transaction book.
+     *
+     * @param person      The person involved in this transaction.
+     * @param amount      The amount involved in this transaction.
+     * @param description The description of the transaction.
+     * @param date        The date the transaction has taken place.
+     * @param cats        The categories the transaction has.
+     */
+    public Transaction(Person person, Amount amount, Description description, Date date, Categories cats) {
+        this(IdUtil.getId(), person, amount, description, date);
+        this.cats = cats;
     }
 
     public Transaction(Person person, Amount amount, Description description, Date date) {
@@ -62,6 +77,18 @@ public class Transaction {
 
     public Date getDate() {
         return date;
+    }
+
+    public void addCategory(String cat) {
+        cats.add(cat);
+    }
+
+    public void removeCategory(String cat) {
+        cats.remove(cat);
+    }
+
+    public boolean containsCategory(String cat) {
+        return cats.contains(cat);
     }
 
     /**
@@ -105,6 +132,4 @@ public class Transaction {
                 date, amount
         );
     }
-
-
 }
