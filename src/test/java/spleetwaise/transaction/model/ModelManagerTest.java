@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.model.person.Person;
 import spleetwaise.address.testutil.TypicalPersons;
 import spleetwaise.transaction.model.transaction.Amount;
@@ -29,8 +30,8 @@ public class ModelManagerTest {
     private static Transaction testTxn3 = new Transaction(testPerson, testAmount, new Description("3"), testDate);
 
 
-    private spleetwaise.transaction.model.Model transactionModel = new spleetwaise.transaction.model.ModelManager();
-    private spleetwaise.address.model.Model addressBookModel = new spleetwaise.address.model.ModelManager();
+    private TransactionBookModel transactionModel = new spleetwaise.transaction.model.ModelManager();
+    private AddressBookModel addressBookModel = new spleetwaise.address.model.ModelManager();
 
     @Test
     void transactionModelIsNotAddressBookModel() {

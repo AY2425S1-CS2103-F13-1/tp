@@ -1,15 +1,13 @@
 package spleetwaise.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.List;
 
 import spleetwaise.address.commons.core.index.Index;
 import spleetwaise.address.commons.util.ToStringBuilder;
 import spleetwaise.address.logic.Messages;
 import spleetwaise.address.logic.commands.exceptions.CommandException;
-import spleetwaise.address.model.Model;
 import spleetwaise.address.model.person.Person;
+import spleetwaise.commons.CommonModel;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -32,8 +30,9 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
+    public CommandResult execute() throws CommandException {
+        CommonModel model = CommonModel.getInstance();
+
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {

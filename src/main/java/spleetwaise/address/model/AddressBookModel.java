@@ -11,7 +11,7 @@ import spleetwaise.address.model.person.Person;
 /**
  * The API of the Model component.
  */
-public interface Model {
+public interface AddressBookModel {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 

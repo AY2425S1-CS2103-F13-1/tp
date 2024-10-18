@@ -1,9 +1,8 @@
 package spleetwaise.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static spleetwaise.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static spleetwaise.address.model.AddressBookModel.PREDICATE_SHOW_ALL_PERSONS;
 
-import spleetwaise.address.model.Model;
+import spleetwaise.commons.CommonModel;
 
 /**
  * Lists all persons in the address book to the user.
@@ -16,8 +15,9 @@ public class ListCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
+    public CommandResult execute() {
+        CommonModel model = CommonModel.getInstance();
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }

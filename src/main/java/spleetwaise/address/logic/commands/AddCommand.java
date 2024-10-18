@@ -11,8 +11,8 @@ import static spleetwaise.address.logic.parser.CliSyntax.PREFIX_TAG;
 import spleetwaise.address.commons.util.ToStringBuilder;
 import spleetwaise.address.logic.Messages;
 import spleetwaise.address.logic.commands.exceptions.CommandException;
-import spleetwaise.address.model.Model;
 import spleetwaise.address.model.person.Person;
+import spleetwaise.commons.CommonModel;
 
 /**
  * Adds a person to the address book.
@@ -52,8 +52,8 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
+    public CommandResult execute() throws CommandException {
+        CommonModel model = CommonModel.getInstance();
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);

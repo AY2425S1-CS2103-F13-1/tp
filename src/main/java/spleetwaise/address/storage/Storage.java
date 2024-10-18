@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import spleetwaise.address.commons.exceptions.DataLoadingException;
+import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.model.ReadOnlyAddressBook;
 import spleetwaise.address.model.ReadOnlyUserPrefs;
 import spleetwaise.address.model.UserPrefs;
@@ -35,7 +36,8 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, Transacti
     Path getTransactionBookFilePath();
 
     @Override
-    Optional<ReadOnlyTransactionBook> readTransactionBook() throws DataLoadingException;
+    Optional<ReadOnlyTransactionBook> readTransactionBook(AddressBookModel addressBookModel)
+            throws DataLoadingException;
 
     @Override
     void saveTransactionBook(ReadOnlyTransactionBook transactionBook) throws IOException;

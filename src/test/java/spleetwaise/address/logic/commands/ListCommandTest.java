@@ -3,7 +3,7 @@ package spleetwaise.address.logic.commands;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import spleetwaise.address.model.Model;
+import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.model.ModelManager;
 import spleetwaise.address.model.UserPrefs;
 import spleetwaise.address.testutil.TypicalIndexes;
@@ -14,8 +14,8 @@ import spleetwaise.address.testutil.TypicalPersons;
  */
 public class ListCommandTest {
 
-    private Model model;
-    private Model expectedModel;
+    private AddressBookModel model;
+    private AddressBookModel expectedModel;
 
     @BeforeEach
     public void setUp() {

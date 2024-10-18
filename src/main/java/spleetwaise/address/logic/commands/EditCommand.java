@@ -20,7 +20,7 @@ import spleetwaise.address.commons.util.CollectionUtil;
 import spleetwaise.address.commons.util.ToStringBuilder;
 import spleetwaise.address.logic.Messages;
 import spleetwaise.address.logic.commands.exceptions.CommandException;
-import spleetwaise.address.model.Model;
+import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.model.person.Address;
 import spleetwaise.address.model.person.Email;
 import spleetwaise.address.model.person.Name;
@@ -28,6 +28,7 @@ import spleetwaise.address.model.person.Person;
 import spleetwaise.address.model.person.Phone;
 import spleetwaise.address.model.person.Remark;
 import spleetwaise.address.model.tag.Tag;
+import spleetwaise.commons.CommonModel;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -92,8 +93,9 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
+    public CommandResult execute() throws CommandException {
+        CommonModel model = CommonModel.getInstance();
+
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -108,7 +110,7 @@ public class EditCommand extends Command {
         }
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPersonList(AddressBookModel.PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 

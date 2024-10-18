@@ -7,11 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import spleetwaise.address.logic.parser.exceptions.ParseException;
-import spleetwaise.address.model.Model;
+import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.model.ModelManager;
 import spleetwaise.address.model.person.Person;
 import spleetwaise.address.model.person.Phone;
 import spleetwaise.address.testutil.TypicalPersons;
+import spleetwaise.commons.CommonModel;
 import spleetwaise.transaction.model.transaction.Amount;
 import spleetwaise.transaction.model.transaction.Date;
 import spleetwaise.transaction.model.transaction.Description;
@@ -83,17 +84,17 @@ public class ParserUtilTest {
 
     @Test
     public void getPersonFromPhone_personNotFound_exceptionThrown() {
-        Model modelManager = new ModelManager();
-        ParserUtil.setAddressBookModel(modelManager);
+        AddressBookModel abModel = new ModelManager();
+        CommonModel.initialise(abModel, null);
 
         assertThrows(ParseException.class, () -> ParserUtil.getPersonFromPhone(TEST_PHONE));
     }
 
     @Test
     public void getPersonFromPhone_personFound_success() {
-        Model modelManager = new ModelManager();
-        ParserUtil.setAddressBookModel(modelManager);
-        modelManager.addPerson(TypicalPersons.ALICE);
+        AddressBookModel abModel = new ModelManager();
+        CommonModel.initialise(abModel, null);
+        abModel.addPerson(TypicalPersons.ALICE);
 
         Person testPerson = assertDoesNotThrow(() -> ParserUtil.getPersonFromPhone(TEST_PHONE));
         assertEquals(TypicalPersons.ALICE, testPerson);

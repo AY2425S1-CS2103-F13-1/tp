@@ -17,11 +17,10 @@ import spleetwaise.address.logic.parser.exceptions.ParseException;
 import spleetwaise.address.model.ReadOnlyAddressBook;
 import spleetwaise.address.model.person.Person;
 import spleetwaise.address.storage.Storage;
+import spleetwaise.commons.CommonModel;
 import spleetwaise.commons.exceptions.SpleetWaiseCommandException;
-import spleetwaise.transaction.logic.parser.ParserUtil;
 import spleetwaise.transaction.logic.parser.TransactionParser;
 import spleetwaise.transaction.model.transaction.Transaction;
-import spleetwaise.transaction.storage.StorageUtil;
 
 /**
  * The main LogicManager of the app.
@@ -34,9 +33,6 @@ public class LogicManager implements Logic {
             "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
-
-    private final spleetwaise.address.model.Model addressBookModel;
-    private final spleetwaise.transaction.model.Model transactionModel;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private final TransactionParser transactionParser;
@@ -44,20 +40,10 @@ public class LogicManager implements Logic {
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
      */
-    public LogicManager(
-            spleetwaise.address.model.Model addressBookModel,
-            spleetwaise.transaction.model.Model transactionModel, Storage storage
-    ) {
-        this.addressBookModel = addressBookModel;
-        this.transactionModel = transactionModel;
+    public LogicManager(Storage storage) {
         this.storage = storage;
-
-        addressBookParser = new AddressBookParser();
-        transactionParser = new TransactionParser();
-
-        // Pass models into Util classes
-        ParserUtil.setAddressBookModel(addressBookModel);
-        StorageUtil.setAddressBookModel(addressBookModel);
+        this.addressBookParser = new AddressBookParser();
+        this.transactionParser = new TransactionParser();
     }
 
     @Override
@@ -96,41 +82,42 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return addressBookModel.getAddressBook();
+        return CommonModel.getInstance().getAddressBook();
     }
 
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return addressBookModel.getFilteredPersonList();
+        return CommonModel.getInstance().getFilteredPersonList();
     }
 
     @Override
     public Path getAddressBookFilePath() {
-        return addressBookModel.getAddressBookFilePath();
+        return CommonModel.getInstance().getAddressBookFilePath();
     }
 
     @Override
     public GuiSettings getGuiSettings() {
-        return addressBookModel.getGuiSettings();
+        return CommonModel.getInstance().getGuiSettings();
     }
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
-        addressBookModel.setGuiSettings(guiSettings);
+        CommonModel.getInstance().setGuiSettings(guiSettings);
     }
 
     @Override
     public ObservableList<Transaction> getFilteredTransactionList() {
-        return transactionModel.getFilteredTransactionList();
+        return CommonModel.getInstance().getFilteredTransactionList();
     }
 
+    // TODO: We need to write both storages because AB commands might result in changes to TB data
     private CommandResult executeAddressBookCommand(spleetwaise.address.logic.commands.Command addressBookCommand)
             throws SpleetWaiseCommandException {
-        CommandResult commandResult = addressBookCommand.execute(addressBookModel);
+        CommandResult commandResult = addressBookCommand.execute();
 
         // Save AddressBook data
         try {
-            storage.saveAddressBook(addressBookModel.getAddressBook());
+            storage.saveAddressBook(CommonModel.getInstance().getAddressBook());
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {
@@ -142,11 +129,11 @@ public class LogicManager implements Logic {
 
     private CommandResult executeTransactionCommand(spleetwaise.transaction.logic.commands.Command transactionCommand)
             throws SpleetWaiseCommandException {
-        CommandResult commandResult = transactionCommand.execute(transactionModel);
+        CommandResult commandResult = transactionCommand.execute();
 
         // Save TransactionBook data
         try {
-            storage.saveTransactionBook(transactionModel.getTransactionBook());
+            storage.saveTransactionBook(CommonModel.getInstance().getTransactionBook());
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {

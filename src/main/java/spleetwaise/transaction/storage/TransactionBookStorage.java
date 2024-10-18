@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import spleetwaise.address.commons.exceptions.DataLoadingException;
+import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.transaction.model.ReadOnlyTransactionBook;
 import spleetwaise.transaction.model.TransactionBook;
 
@@ -24,12 +25,14 @@ public interface TransactionBookStorage {
      *
      * @throws DataLoadingException if loading the data from storage failed.
      */
-    Optional<ReadOnlyTransactionBook> readTransactionBook() throws DataLoadingException;
+    Optional<ReadOnlyTransactionBook> readTransactionBook(AddressBookModel addressBookModel)
+            throws DataLoadingException;
 
     /**
      * @see #getTransactionBookFilePath()
      */
-    Optional<ReadOnlyTransactionBook> readTransactionBook(Path filePath) throws DataLoadingException;
+    Optional<ReadOnlyTransactionBook> readTransactionBook(Path filePath, AddressBookModel addressBookModel)
+            throws DataLoadingException;
 
     /**
      * Saves the given {@link ReadOnlyTransactionBook} to the storage.

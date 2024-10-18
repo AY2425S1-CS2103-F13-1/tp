@@ -1,17 +1,19 @@
 package spleetwaise.transaction.storage.adapters;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import spleetwaise.address.commons.exceptions.IllegalValueException;
+import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.model.person.Person;
 import spleetwaise.transaction.model.transaction.Amount;
 import spleetwaise.transaction.model.transaction.Date;
 import spleetwaise.transaction.model.transaction.Description;
 import spleetwaise.transaction.model.transaction.Transaction;
-import spleetwaise.transaction.storage.StorageUtil;
 
 /**
  * Adapter for serializing and deserializing Transaction objects into JSON.
@@ -117,7 +119,9 @@ public class JsonAdaptedTransaction {
      * @return the deserialized Transaction object
      * @throws IllegalValueException if any of the fields are missing or invalid
      */
-    public Transaction toModelType() throws IllegalValueException {
+    public Transaction toModelType(AddressBookModel addressBookModel) throws IllegalValueException {
+        requireNonNull(addressBookModel);
+
         final Person p;
         final Amount a;
         final Description d;
@@ -149,7 +153,7 @@ public class JsonAdaptedTransaction {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
 
-        Optional<Person> opPerson = StorageUtil.getPerson(personId);
+        Optional<Person> opPerson = addressBookModel.getPersonById(personId);
 
         if (opPerson.isEmpty()) {
             throw new IllegalValueException(String.format(PERSON_ID_NOT_FOUND, personId));

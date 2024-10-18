@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import spleetwaise.address.logic.parser.exceptions.ParseException;
 import spleetwaise.address.testutil.TypicalPersons;
+import spleetwaise.commons.CommonModel;
 import spleetwaise.transaction.logic.commands.AddCommand;
 import spleetwaise.transaction.logic.commands.ClearCommand;
 import spleetwaise.transaction.logic.commands.Command;
@@ -21,8 +22,7 @@ public class TransactionParserTest {
     public void parseCommand_add() throws Exception {
         spleetwaise.address.model.ModelManager aBModel = new spleetwaise.address.model.ModelManager();
         aBModel.addPerson(TypicalPersons.ALICE);
-        ParserUtil.setAddressBookModel(aBModel);
-
+        CommonModel.initialise(aBModel, null);
         AddCommand command = (AddCommand) parser.parseCommand(TransactionUtil.getAddCommand());
         assert command != null;
     }

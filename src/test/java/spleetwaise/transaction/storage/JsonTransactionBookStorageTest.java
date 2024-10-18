@@ -7,12 +7,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import spleetwaise.address.commons.exceptions.DataLoadingException;
+import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.model.person.Person;
 import spleetwaise.address.testutil.Assert;
 import spleetwaise.address.testutil.TypicalPersons;
@@ -28,19 +28,14 @@ public class JsonTransactionBookStorageTest {
                                                   TypicalPersons.ALICE, TypicalPersons.BOB };
     @TempDir
     public Path testFolder;
-
-    @AfterAll
-    public static void tearDown() {
-        StorageUtil.setAddressBookModel(null);
-    }
+    private AddressBookModel addressBookModel;
 
     @BeforeEach
     public void setUp() {
-        spleetwaise.address.model.Model addressBookModel = new spleetwaise.address.model.ModelManager();
+        addressBookModel = new spleetwaise.address.model.ModelManager();
         for (Person p : TEST_PEOPLE) {
             addressBookModel.addPerson(p);
         }
-        StorageUtil.setAddressBookModel(addressBookModel);
     }
 
     @Test
@@ -51,7 +46,7 @@ public class JsonTransactionBookStorageTest {
 
     private java.util.Optional<ReadOnlyTransactionBook> readTxnBook(String filePath) throws Exception {
         return new JsonTransactionBookStorage(Paths.get(filePath)).readTransactionBook(
-                addToTestDataPathIfNotNull(filePath));
+                addToTestDataPathIfNotNull(filePath), addressBookModel);
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -94,20 +89,20 @@ public class JsonTransactionBookStorageTest {
 
         // Save in new file and read back
         jsonTxnBookStorage.saveTransactionBook(original, filePath);
-        ReadOnlyTransactionBook readBack = jsonTxnBookStorage.readTransactionBook(filePath).get();
+        ReadOnlyTransactionBook readBack = jsonTxnBookStorage.readTransactionBook(filePath, addressBookModel).get();
         assertEquals(original, new TransactionBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addTransaction(TypicalTransactions.CARLBUYING);
         original.removeTransaction(TypicalTransactions.SEANOWESME);
         jsonTxnBookStorage.saveTransactionBook(original, filePath);
-        readBack = jsonTxnBookStorage.readTransactionBook(filePath).get();
+        readBack = jsonTxnBookStorage.readTransactionBook(filePath, addressBookModel).get();
         assertEquals(original, new TransactionBook(readBack));
 
         // Save and read without specifying file path
         original.addTransaction(TypicalTransactions.DANIELDEBT);
         jsonTxnBookStorage.saveTransactionBook(original); // file path not specified
-        readBack = jsonTxnBookStorage.readTransactionBook().get(); // file path not specified
+        readBack = jsonTxnBookStorage.readTransactionBook(addressBookModel).get(); // file path not specified
         assertEquals(original, new TransactionBook(readBack));
 
     }

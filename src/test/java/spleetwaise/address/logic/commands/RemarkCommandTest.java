@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import spleetwaise.address.commons.core.index.Index;
 import spleetwaise.address.logic.Messages;
 import spleetwaise.address.model.AddressBook;
-import spleetwaise.address.model.Model;
+import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.model.ModelManager;
 import spleetwaise.address.model.UserPrefs;
 import spleetwaise.address.model.person.Person;
@@ -32,7 +32,7 @@ public class RemarkCommandTest {
 
     private static final String REMARK_STUB = "Some remark";
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final AddressBookModel model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_addRemarkUnfilteredList_success() {
@@ -44,7 +44,7 @@ public class RemarkCommandTest {
 
         String expectedMessage = String.format(RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        AddressBookModel expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
@@ -61,7 +61,7 @@ public class RemarkCommandTest {
 
         String expectedMessage = String.format(RemarkCommand.MESSAGE_DELETE_REMARK_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        AddressBookModel expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
@@ -80,7 +80,7 @@ public class RemarkCommandTest {
 
         String expectedMessage = String.format(RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        AddressBookModel expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);

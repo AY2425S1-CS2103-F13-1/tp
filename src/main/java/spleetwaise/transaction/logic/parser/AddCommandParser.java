@@ -27,8 +27,16 @@ import spleetwaise.transaction.model.transaction.Transaction;
 public class AddCommandParser implements Parser<AddCommand> {
 
     /**
-     * Parses the given {@code String} argument in the context of the transaction AddCommand and returns
-     * an AddCommand object for execution.
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Parses the given {@code String} argument in the context of the transaction AddCommand and returns an AddCommand
+     * object for execution.
      *
      * @param args The string argument to be parsed.
      * @return The AddCommand object to execute.
@@ -57,13 +65,5 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         return new AddCommand(transaction);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

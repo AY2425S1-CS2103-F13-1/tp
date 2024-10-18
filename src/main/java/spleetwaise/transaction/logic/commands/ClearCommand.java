@@ -1,9 +1,7 @@
 package spleetwaise.transaction.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import spleetwaise.address.logic.commands.CommandResult;
-import spleetwaise.transaction.model.Model;
+import spleetwaise.commons.CommonModel;
 import spleetwaise.transaction.model.TransactionBook;
 
 /**
@@ -16,8 +14,8 @@ public class ClearCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
+    public CommandResult execute() {
+        CommonModel model = CommonModel.getInstance();
         model.setTransactionBook(new TransactionBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }

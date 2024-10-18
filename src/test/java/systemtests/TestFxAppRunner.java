@@ -23,7 +23,7 @@ import guitests.guihandles.StatusBarHandle;
 import spleetwaise.address.logic.commands.ClearCommand;
 import spleetwaise.address.logic.commands.FindCommand;
 import spleetwaise.address.model.AddressBook;
-import spleetwaise.address.model.Model;
+import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.testutil.TestUtil;
 import spleetwaise.address.testutil.TypicalPersons;
 import spleetwaise.address.ui.CommandBox;
@@ -193,7 +193,7 @@ public abstract class TestFxAppRunner {
      */
     protected void assertApplicationDisplaysExpected(
             String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel
+            AddressBookModel expectedModel
     ) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
@@ -251,7 +251,7 @@ public abstract class TestFxAppRunner {
      *
      * @return The model instance.
      */
-    protected Model getModel() {
+    protected AddressBookModel getModel() {
         return testApp.getAddrModel();
     }
 }

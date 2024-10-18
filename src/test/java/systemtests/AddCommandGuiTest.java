@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 import spleetwaise.address.logic.Messages;
 import spleetwaise.address.logic.commands.AddCommand;
-import spleetwaise.address.model.Model;
+import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.model.person.Address;
 import spleetwaise.address.model.person.Email;
 import spleetwaise.address.model.person.Name;
@@ -149,21 +149,21 @@ public class AddCommandGuiTest extends TestFxAppRunner {
     }
 
     private void assertCommandSuccess(String command, Person toAdd) {
-        Model expectedModel = getModel();
+        AddressBookModel expectedModel = getModel();
         expectedModel.addPerson(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(toAdd));
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }
 
-    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
+    private void assertCommandSuccess(String command, AddressBookModel expectedModel, String expectedResultMessage) {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
     }
 
     private void assertCommandFailure(String command, String expectedResultMessage) {
-        Model expectedModel = getModel();
+        AddressBookModel expectedModel = getModel();
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);

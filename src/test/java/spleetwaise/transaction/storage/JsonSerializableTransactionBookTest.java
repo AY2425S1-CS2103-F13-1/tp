@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import spleetwaise.address.commons.exceptions.IllegalValueException;
 import spleetwaise.address.commons.util.JsonUtil;
+import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.model.person.Person;
 import spleetwaise.address.testutil.Assert;
 import spleetwaise.address.testutil.TypicalPersons;
@@ -24,22 +24,17 @@ public class JsonSerializableTransactionBookTest {
     private static final Path INVALID_TXN_FILE = TEST_DATA_FOLDER.resolve("invalidEntryTransactionBook.json");
     private static final Path DUPLICATE_TXN_FILE = TEST_DATA_FOLDER.resolve("duplicateEntryTransactionBook.json");
     private static final Path DUPLICATE_ID_TXN_FILE = TEST_DATA_FOLDER.resolve("duplicateIdTransactionBook.json");
-
     private static final Person[] TEST_PEOPLE = { TypicalPersons.CARL, TypicalPersons.DANIEL, TypicalPersons.BENSON,
                                                   TypicalPersons.ALICE, TypicalPersons.BOB };
+    private AddressBookModel addressBookModel;
 
-    @AfterAll
-    public static void tearDown() {
-        StorageUtil.setAddressBookModel(null);
-    }
 
     @BeforeEach
     public void setUp() {
-        spleetwaise.address.model.Model addressBookModel = new spleetwaise.address.model.ModelManager();
+        addressBookModel = new spleetwaise.address.model.ModelManager();
         for (Person p : TEST_PEOPLE) {
             addressBookModel.addPerson(p);
         }
-        StorageUtil.setAddressBookModel(addressBookModel);
     }
 
     @Test
@@ -48,7 +43,7 @@ public class JsonSerializableTransactionBookTest {
                 TYPICAL_TXN_FILE,
                 JsonSerializableTransactionBook.class
         ).get();
-        TransactionBook transactionBookFromFile = dataFromFile.toModelType();
+        TransactionBook transactionBookFromFile = dataFromFile.toModelType(addressBookModel);
         TransactionBook typicalTxnBook = TypicalTransactions.getTypicalTransactionBook();
         assertEquals(transactionBookFromFile, typicalTxnBook);
     }
@@ -59,7 +54,7 @@ public class JsonSerializableTransactionBookTest {
                 INVALID_TXN_FILE,
                 JsonSerializableTransactionBook.class
         ).get();
-        Assert.assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+        Assert.assertThrows(IllegalValueException.class, () -> dataFromFile.toModelType(addressBookModel));
     }
 
     @Test
@@ -68,8 +63,9 @@ public class JsonSerializableTransactionBookTest {
                 DUPLICATE_TXN_FILE,
                 JsonSerializableTransactionBook.class
         ).get();
-        Assert.assertThrows(IllegalValueException.class, JsonSerializableTransactionBook.MESSAGE_DUPLICATE_TRANSACTIONS,
-                dataFromFile::toModelType
+        Assert.assertThrows(IllegalValueException.class,
+                JsonSerializableTransactionBook.MESSAGE_DUPLICATE_TRANSACTIONS, (
+                ) -> dataFromFile.toModelType(addressBookModel)
         );
     }
 
@@ -79,8 +75,10 @@ public class JsonSerializableTransactionBookTest {
                 DUPLICATE_ID_TXN_FILE,
                 JsonSerializableTransactionBook.class
         ).get();
-        Assert.assertThrows(IllegalValueException.class, JsonSerializableTransactionBook.MESSAGE_DUPLICATE_TRANSACTIONS,
-                dataFromFile::toModelType
+        Assert.assertThrows(
+                IllegalValueException.class,
+                JsonSerializableTransactionBook.MESSAGE_DUPLICATE_TRANSACTIONS, (
+                ) -> dataFromFile.toModelType(addressBookModel)
         );
     }
 }

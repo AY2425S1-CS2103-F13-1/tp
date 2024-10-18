@@ -1,7 +1,5 @@
 package spleetwaise.address.logic.commands;
 
-import spleetwaise.address.model.Model;
-
 /**
  * Format full help instructions for every command for display.
  */
@@ -15,7 +13,7 @@ public class HelpCommand extends Command {
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute() {
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
     }
 }

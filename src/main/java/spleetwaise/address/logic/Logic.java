@@ -7,7 +7,7 @@ import spleetwaise.address.commons.core.GuiSettings;
 import spleetwaise.address.logic.commands.CommandResult;
 import spleetwaise.address.logic.commands.exceptions.CommandException;
 import spleetwaise.address.logic.parser.exceptions.ParseException;
-import spleetwaise.address.model.Model;
+import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.model.ReadOnlyAddressBook;
 import spleetwaise.address.model.person.Person;
 import spleetwaise.commons.exceptions.SpleetWaiseCommandException;
@@ -29,7 +29,7 @@ public interface Logic {
     /**
      * Returns the AddressBook.
      *
-     * @see Model#getAddressBook()
+     * @see AddressBookModel#getAddressBook()
      */
     ReadOnlyAddressBook getAddressBook();
 

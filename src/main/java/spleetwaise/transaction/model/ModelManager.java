@@ -13,7 +13,7 @@ import spleetwaise.transaction.model.transaction.Transaction;
 /**
  * Represents the in-memory model of the transaction data.
  */
-public class ModelManager implements Model {
+public class ModelManager implements TransactionBookModel {
 
     private static final Logger logger = LogsCenter.getLogger(spleetwaise.address.model.ModelManager.class);
 
@@ -88,7 +88,7 @@ public class ModelManager implements Model {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Model)) {
+        if (!(other instanceof TransactionBookModel)) {
             return false;
         }
 

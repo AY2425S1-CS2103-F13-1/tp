@@ -1,5 +1,7 @@
 package spleetwaise.transaction.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import spleetwaise.address.commons.exceptions.IllegalValueException;
+import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.transaction.model.ReadOnlyTransactionBook;
 import spleetwaise.transaction.model.TransactionBook;
 import spleetwaise.transaction.model.transaction.Transaction;
@@ -47,10 +50,11 @@ class JsonSerializableTransactionBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public TransactionBook toModelType() throws IllegalValueException {
+    public TransactionBook toModelType(AddressBookModel addressBookModel) throws IllegalValueException {
+        requireNonNull(addressBookModel);
         TransactionBook transactionBook = new TransactionBook();
         for (JsonAdaptedTransaction jsonAdaptedTxn : transactions) {
-            Transaction txn = jsonAdaptedTxn.toModelType();
+            Transaction txn = jsonAdaptedTxn.toModelType(addressBookModel);
             if (transactionBook.containsTransaction(txn) || transactionBook.containsTransactionById(txn)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTIONS);
             }

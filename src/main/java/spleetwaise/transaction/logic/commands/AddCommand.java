@@ -8,8 +8,8 @@ import static spleetwaise.transaction.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import spleetwaise.address.commons.util.ToStringBuilder;
 import spleetwaise.address.logic.commands.CommandResult;
+import spleetwaise.commons.CommonModel;
 import spleetwaise.transaction.logic.commands.exceptions.CommandException;
-import spleetwaise.transaction.model.Model;
 import spleetwaise.transaction.model.transaction.Transaction;
 
 /**
@@ -33,10 +33,10 @@ public class AddCommand extends Command {
      * The message usage string that explains how to use this command.
      */
     public static final String MESSAGE_USAGE =
-        COMMAND_WORD + ": Add a new transaction.\n" + "Parameters: " + PREFIX_PHONE + "CONTACT " + PREFIX_AMOUNT
-            + "AMOUNT " + PREFIX_DESCRIPTION + "DESCRIPTION " + "[" + PREFIX_DATE + "DATE ]\n" + "Example: "
-            + COMMAND_WORD + " " + PREFIX_PHONE + "88888888 " + PREFIX_AMOUNT + "10.00 " + PREFIX_DESCRIPTION
-            + "Paid John for lunch" + PREFIX_DATE + "23012024 ";
+            COMMAND_WORD + ": Add a new transaction.\n" + "Parameters: " + PREFIX_PHONE + "CONTACT " + PREFIX_AMOUNT
+                    + "AMOUNT " + PREFIX_DESCRIPTION + "DESCRIPTION " + "[" + PREFIX_DATE + "DATE ]\n" + "Example: "
+                    + COMMAND_WORD + " " + PREFIX_PHONE + "88888888 " + PREFIX_AMOUNT + "10.00 " + PREFIX_DESCRIPTION
+                    + "Paid John for lunch" + PREFIX_DATE + "23012024 ";
 
 
     private final Transaction transactionToAdd;
@@ -54,12 +54,11 @@ public class AddCommand extends Command {
     /**
      * This method executes the add command.
      *
-     * @param model the model of the transactions.
      * @return the result of the execution.
      */
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
+    public CommandResult execute() throws CommandException {
+        CommonModel model = CommonModel.getInstance();
 
         if (model.hasTransaction(transactionToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TXN);

@@ -8,7 +8,7 @@ import spleetwaise.transaction.model.transaction.Transaction;
 /**
  * The API of the transaction component.
  */
-public interface Model {
+public interface TransactionBookModel {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Transaction> PREDICATE_SHOW_ALL_TXNS = unused -> true;
 

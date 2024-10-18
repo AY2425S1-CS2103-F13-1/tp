@@ -17,7 +17,7 @@ import spleetwaise.address.model.person.Person;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class ModelManager implements Model {
+public class ModelManager implements AddressBookModel {
 
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 

@@ -2,12 +2,12 @@ package spleetwaise.address.logic.commands;
 
 import org.junit.jupiter.api.Test;
 
-import spleetwaise.address.model.Model;
+import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.model.ModelManager;
 
 public class HelpCommandTest {
-    private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
+    private AddressBookModel model = new ModelManager();
+    private AddressBookModel expectedModel = new ModelManager();
 
     @Test
     public void execute_help_success() {
