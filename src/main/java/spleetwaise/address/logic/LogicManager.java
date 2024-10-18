@@ -21,7 +21,6 @@ import spleetwaise.commons.exceptions.SpleetWaiseCommandException;
 import spleetwaise.transaction.logic.parser.ParserUtil;
 import spleetwaise.transaction.logic.parser.TransactionParser;
 import spleetwaise.transaction.model.transaction.Transaction;
-import spleetwaise.transaction.storage.StorageUtil;
 
 /**
  * The main LogicManager of the app.
@@ -55,9 +54,8 @@ public class LogicManager implements Logic {
         addressBookParser = new AddressBookParser();
         transactionParser = new TransactionParser();
 
-        // Pass models into Util classes
+        // Pass model into ParserUtil class
         ParserUtil.setAddressBookModel(addressBookModel);
-        StorageUtil.setAddressBookModel(addressBookModel);
     }
 
     @Override
