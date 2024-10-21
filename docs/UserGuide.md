@@ -98,7 +98,7 @@ Examples:
 
 Adds a transaction to the transaction book.
 
-Format: `addTxn p/PHONE_NUMBER amount/AMOUNT desc/TEST [date/DATE]`
+Format: `addTxn p/PHONE_NUMBER amt/AMOUNT desc/TEST [date/DATE]`
 * The `PHONE_NUMBER` refers to the phone number associated to the person had a transaction with.
 * The `AMOUNT` accepts a decimal number with up to 2 decimal places. A `-` can be added as prefix to indicate negative 
 amount.
@@ -161,6 +161,30 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+
+### Filtering transactions: `filterTxn`
+
+Filter transactions with the specified person identified by their phone number, and/or amount and/or description 
+and/or date.
+
+Format: `filterTxn [p/PHONE_NUMBER] [amt/AMOUNT] [desc/DESCRIPTION] [date/DATE]`
+
+* The command requires at least one of the above optional prefixes to be provided.
+* As more prefixes are provided, the filter becomes more specific.
+* The `PHONE_NUMBER` refers to the phone number associated to the person had a transaction with.
+* The `AMOUNT` accepts a decimal number with up to 2 decimal places. A `-` can be added as prefix to indicate negative
+amount.
+* The `DATE` accepts date formatted in the form `DDMMYYYY` i.e.`10102024`.
+* The `DESCRIPTION` accepts a string of words.
+  * The description filter is case-insensitive. e.g `hans` will match `Hans`
+
+Examples:<br>
+* Given the example transaction book:<br>
+![Given the example transaction book](images/filterTxnExample.png)
+* `filterTxn p/87438807` returns all transactions with the person `Alex Yeoh`.<br>
+![result fpr 'filterTxn p/87438807'](images/filterTxnAlexYeohResult.png)
+* `filterTxn p/99272758 amt/5.5` returns all transactions with the person `Bernice Yu` with amount `5.50`.<br>
+![result for 'filterTxn p/99272758 amt/5.5'](images/filterTxnBerniceYuAmt55Result.png)
 
 ### Adding Remarks for a person : `remark`
 
@@ -268,8 +292,9 @@ the data of your previous AddressBook home folder.
 
 ## Command Summary for Transactions
 
-| Action    | Format, Examples                                                                                                                                                                   |
-|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**   | `add p/PHONE_NUMBER amt/AMOUNT desc/DESCRIPTION [date/DATE]` <br> e.g., `addTxn p/99999999 amt/-9999999999.99 desc/Sean owes me a lot for a plot of land in sentosa date/10102024` |
-| **List**  | `listTxn`                                                                                                                                                                          |
-| **Clear** | `clearTxn`                                                                                                                                                                         |
+| Action     | Format, Examples                                                                                                                                                                   |
+|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**    | `add p/PHONE_NUMBER amt/AMOUNT desc/DESCRIPTION [date/DATE]` <br> e.g., `addTxn p/99999999 amt/-9999999999.99 desc/Sean owes me a lot for a plot of land in sentosa date/10102024` |
+| **List**   | `listTxn`                                                                                                                                                                          |
+| **Filter** | `filterTxn [p/PHONE_NUMBER] [amt/AMOUNT] [desc/DESCRIPTION] [date/DATE]` <br> e.g. `filterTxn p/99999999`                                                                          |
+| **Clear**  | `clearTxn`                                                                                                                                                                         |
