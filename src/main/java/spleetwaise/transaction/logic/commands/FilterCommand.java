@@ -8,10 +8,11 @@ import static spleetwaise.transaction.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import java.util.function.Predicate;
 
 import spleetwaise.address.commons.util.ToStringBuilder;
-import spleetwaise.address.logic.commands.CommandResult;
 import spleetwaise.address.model.person.Person;
-import spleetwaise.commons.CommonModel;
-import spleetwaise.transaction.logic.commands.exceptions.CommandException;
+import spleetwaise.commons.logic.commands.Command;
+import spleetwaise.commons.logic.commands.CommandResult;
+import spleetwaise.commons.logic.commands.exceptions.CommandException;
+import spleetwaise.commons.model.CommonModel;
 import spleetwaise.transaction.model.transaction.Amount;
 import spleetwaise.transaction.model.transaction.Date;
 import spleetwaise.transaction.model.transaction.Description;
@@ -50,10 +51,10 @@ public class FilterCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Transaction}.
      *
-     * @param contact The person to filter the transaction by.
-     * @param amount The amount to filter the transaction by.
+     * @param contact     The person to filter the transaction by.
+     * @param amount      The amount to filter the transaction by.
      * @param description The description to filter the transaction by.
-     * @param date The date to filter the transaction by.
+     * @param date        The date to filter the transaction by.
      */
     public FilterCommand(Person contact, Amount amount, Description description, Date date) {
         if (contact == null && amount == null && description == null && date == null) {

@@ -10,7 +10,7 @@ import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.model.person.Person;
 import spleetwaise.address.model.person.Phone;
 import spleetwaise.address.testutil.TypicalPersons;
-import spleetwaise.commons.CommonModel;
+import spleetwaise.commons.model.CommonModel;
 import spleetwaise.transaction.logic.commands.FilterCommand;
 import spleetwaise.transaction.model.ModelManager;
 import spleetwaise.transaction.model.TransactionBookModel;
