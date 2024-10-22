@@ -30,7 +30,7 @@ import spleetwaise.address.storage.StorageManager;
 import spleetwaise.address.storage.UserPrefsStorage;
 import spleetwaise.address.ui.Ui;
 import spleetwaise.address.ui.UiManager;
-import spleetwaise.commons.CommonModel;
+import spleetwaise.commons.model.CommonModel;
 import spleetwaise.transaction.model.ReadOnlyTransactionBook;
 import spleetwaise.transaction.model.TransactionBook;
 import spleetwaise.transaction.model.TransactionBookModel;

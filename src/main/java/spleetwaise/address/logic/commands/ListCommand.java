@@ -2,7 +2,9 @@ package spleetwaise.address.logic.commands;
 
 import static spleetwaise.address.model.AddressBookModel.PREDICATE_SHOW_ALL_PERSONS;
 
-import spleetwaise.commons.CommonModel;
+import spleetwaise.commons.logic.commands.Command;
+import spleetwaise.commons.logic.commands.CommandResult;
+import spleetwaise.commons.model.CommonModel;
 
 /**
  * Lists all persons in the address book to the user.

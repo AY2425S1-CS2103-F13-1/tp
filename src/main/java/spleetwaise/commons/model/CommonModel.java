@@ -1,4 +1,4 @@
-package spleetwaise.commons;
+package spleetwaise.commons.model;
 
 import static java.util.Objects.requireNonNull;
 

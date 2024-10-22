@@ -5,9 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import spleetwaise.address.logic.Logic;
-import spleetwaise.address.logic.commands.CommandResult;
 import spleetwaise.address.logic.parser.exceptions.ParseException;
 import spleetwaise.commons.exceptions.SpleetWaiseCommandException;
+import spleetwaise.commons.logic.commands.CommandResult;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

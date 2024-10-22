@@ -1,7 +1,9 @@
 package spleetwaise.address.logic.commands;
 
 import spleetwaise.address.model.AddressBook;
-import spleetwaise.commons.CommonModel;
+import spleetwaise.commons.logic.commands.Command;
+import spleetwaise.commons.logic.commands.CommandResult;
+import spleetwaise.commons.model.CommonModel;
 
 /**
  * Clears the address book.

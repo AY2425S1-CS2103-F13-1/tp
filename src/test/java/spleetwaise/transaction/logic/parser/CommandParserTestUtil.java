@@ -3,7 +3,7 @@ package spleetwaise.transaction.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import spleetwaise.address.logic.parser.exceptions.ParseException;
-import spleetwaise.transaction.logic.commands.Command;
+import spleetwaise.commons.logic.commands.Command;
 
 
 /**

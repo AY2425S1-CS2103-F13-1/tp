@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.model.ModelManager;
+import spleetwaise.commons.logic.commands.CommandResult;
 
 public class ExitCommandTest {
 

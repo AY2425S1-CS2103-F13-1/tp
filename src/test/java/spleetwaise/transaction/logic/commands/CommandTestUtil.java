@@ -4,9 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import spleetwaise.address.commons.core.index.Index;
-import spleetwaise.address.logic.commands.CommandResult;
-import spleetwaise.commons.CommonModel;
-import spleetwaise.transaction.logic.commands.exceptions.CommandException;
+import spleetwaise.commons.logic.commands.Command;
+import spleetwaise.commons.logic.commands.CommandResult;
+import spleetwaise.commons.logic.commands.exceptions.CommandException;
+import spleetwaise.commons.model.CommonModel;
 import spleetwaise.transaction.model.TransactionBookModel;
 import spleetwaise.transaction.model.transaction.Transaction;
 import spleetwaise.transaction.model.transaction.TransactionIdPredicate;

@@ -3,7 +3,9 @@ package spleetwaise.address.logic.commands;
 import spleetwaise.address.commons.util.ToStringBuilder;
 import spleetwaise.address.logic.Messages;
 import spleetwaise.address.model.person.NameContainsKeywordsPredicate;
-import spleetwaise.commons.CommonModel;
+import spleetwaise.commons.logic.commands.Command;
+import spleetwaise.commons.logic.commands.CommandResult;
+import spleetwaise.commons.model.CommonModel;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords. Keyword matching is

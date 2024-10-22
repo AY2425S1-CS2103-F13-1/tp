@@ -1,7 +1,7 @@
 package spleetwaise.address.logic.parser;
 
-import spleetwaise.address.logic.commands.Command;
 import spleetwaise.address.logic.parser.exceptions.ParseException;
+import spleetwaise.commons.logic.commands.Command;
 
 /**
  * Represents a Parser that is able to parse user input into a {@code Command} of type {@code T}.

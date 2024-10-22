@@ -1,5 +1,8 @@
 package spleetwaise.address.logic.commands;
 
+import spleetwaise.commons.logic.commands.Command;
+import spleetwaise.commons.logic.commands.CommandResult;
+
 /**
  * Format full help instructions for every command for display.
  */

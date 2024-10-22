@@ -1,7 +1,8 @@
 package spleetwaise.transaction.logic.commands;
 
-import spleetwaise.address.logic.commands.CommandResult;
-import spleetwaise.commons.CommonModel;
+import spleetwaise.commons.logic.commands.Command;
+import spleetwaise.commons.logic.commands.CommandResult;
+import spleetwaise.commons.model.CommonModel;
 import spleetwaise.transaction.model.TransactionBook;
 
 /**

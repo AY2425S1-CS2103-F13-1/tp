@@ -8,10 +8,12 @@ import java.util.List;
 
 import spleetwaise.address.commons.core.index.Index;
 import spleetwaise.address.logic.Messages;
-import spleetwaise.address.logic.commands.exceptions.CommandException;
 import spleetwaise.address.model.person.Person;
 import spleetwaise.address.model.person.Remark;
-import spleetwaise.commons.CommonModel;
+import spleetwaise.commons.logic.commands.Command;
+import spleetwaise.commons.logic.commands.CommandResult;
+import spleetwaise.commons.logic.commands.exceptions.CommandException;
+import spleetwaise.commons.model.CommonModel;
 
 /**
  * Changes the remark of an existing person in the address book.

@@ -8,12 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import spleetwaise.address.logic.commands.CommandResult;
 import spleetwaise.address.model.person.Person;
 import spleetwaise.address.testutil.Assert;
 import spleetwaise.address.testutil.TypicalPersons;
-import spleetwaise.commons.CommonModel;
-import spleetwaise.transaction.logic.commands.exceptions.CommandException;
+import spleetwaise.commons.logic.commands.CommandResult;
+import spleetwaise.commons.logic.commands.exceptions.CommandException;
+import spleetwaise.commons.model.CommonModel;
 import spleetwaise.transaction.model.ModelManager;
 import spleetwaise.transaction.model.transaction.Amount;
 import spleetwaise.transaction.model.transaction.Date;

@@ -2,8 +2,9 @@ package spleetwaise.transaction.logic.commands;
 
 import static spleetwaise.transaction.model.ModelManager.PREDICATE_SHOW_ALL_TXNS;
 
-import spleetwaise.address.logic.commands.CommandResult;
-import spleetwaise.commons.CommonModel;
+import spleetwaise.commons.logic.commands.Command;
+import spleetwaise.commons.logic.commands.CommandResult;
+import spleetwaise.commons.model.CommonModel;
 
 /**
  * Lists all transactions in the transaction book to the user.

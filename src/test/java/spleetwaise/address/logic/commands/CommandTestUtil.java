@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 
 import spleetwaise.address.commons.core.index.Index;
-import spleetwaise.address.logic.commands.exceptions.CommandException;
 import spleetwaise.address.logic.parser.CliSyntax;
 import spleetwaise.address.model.AddressBook;
 import spleetwaise.address.model.AddressBookModel;
@@ -16,7 +15,10 @@ import spleetwaise.address.model.person.NameContainsKeywordsPredicate;
 import spleetwaise.address.model.person.Person;
 import spleetwaise.address.testutil.Assert;
 import spleetwaise.address.testutil.EditPersonDescriptorBuilder;
-import spleetwaise.commons.CommonModel;
+import spleetwaise.commons.logic.commands.Command;
+import spleetwaise.commons.logic.commands.CommandResult;
+import spleetwaise.commons.logic.commands.exceptions.CommandException;
+import spleetwaise.commons.model.CommonModel;
 
 /**
  * Contains helper methods for testing commands.

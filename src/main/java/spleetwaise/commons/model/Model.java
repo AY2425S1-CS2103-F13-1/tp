@@ -1,4 +1,4 @@
-package spleetwaise.commons;
+package spleetwaise.commons.model;
 
 import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.transaction.model.TransactionBookModel;

@@ -1,4 +1,4 @@
-package spleetwaise.address.logic.commands;
+package spleetwaise.commons.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 

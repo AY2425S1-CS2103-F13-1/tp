@@ -5,9 +5,11 @@ import java.util.List;
 import spleetwaise.address.commons.core.index.Index;
 import spleetwaise.address.commons.util.ToStringBuilder;
 import spleetwaise.address.logic.Messages;
-import spleetwaise.address.logic.commands.exceptions.CommandException;
 import spleetwaise.address.model.person.Person;
-import spleetwaise.commons.CommonModel;
+import spleetwaise.commons.logic.commands.Command;
+import spleetwaise.commons.logic.commands.CommandResult;
+import spleetwaise.commons.logic.commands.exceptions.CommandException;
+import spleetwaise.commons.model.CommonModel;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.

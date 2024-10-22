@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import spleetwaise.address.logic.parser.exceptions.ParseException;
 import spleetwaise.address.testutil.TypicalPersons;
-import spleetwaise.commons.CommonModel;
+import spleetwaise.commons.logic.commands.Command;
+import spleetwaise.commons.model.CommonModel;
 import spleetwaise.transaction.logic.commands.AddCommand;
 import spleetwaise.transaction.logic.commands.ClearCommand;
-import spleetwaise.transaction.logic.commands.Command;
 import spleetwaise.transaction.testutil.TransactionUtil;
 
 

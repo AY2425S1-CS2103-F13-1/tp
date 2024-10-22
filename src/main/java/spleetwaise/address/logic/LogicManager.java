@@ -10,15 +10,16 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import spleetwaise.address.commons.core.GuiSettings;
 import spleetwaise.address.commons.core.LogsCenter;
-import spleetwaise.address.logic.commands.CommandResult;
-import spleetwaise.address.logic.commands.exceptions.CommandException;
 import spleetwaise.address.logic.parser.AddressBookParser;
 import spleetwaise.address.logic.parser.exceptions.ParseException;
 import spleetwaise.address.model.ReadOnlyAddressBook;
 import spleetwaise.address.model.person.Person;
 import spleetwaise.address.storage.Storage;
-import spleetwaise.commons.CommonModel;
 import spleetwaise.commons.exceptions.SpleetWaiseCommandException;
+import spleetwaise.commons.logic.commands.Command;
+import spleetwaise.commons.logic.commands.CommandResult;
+import spleetwaise.commons.logic.commands.exceptions.CommandException;
+import spleetwaise.commons.model.CommonModel;
 import spleetwaise.transaction.logic.parser.TransactionParser;
 import spleetwaise.transaction.model.transaction.Transaction;
 
@@ -50,16 +51,18 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws ParseException, SpleetWaiseCommandException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
+        // Parse command
+        Command addressBookCommand = addressBookParser.parseCommand(commandText);
+        Command transactionCommand = transactionParser.parseCommand(commandText);
 
-        spleetwaise.address.logic.commands.Command addressBookCommand = addressBookParser.parseCommand(commandText);
-        spleetwaise.transaction.logic.commands.Command transactionCommand = transactionParser.parseCommand(commandText);
-
+        // Execute commands
         if (addressBookCommand != null) {
             return executeAddressBookCommand(addressBookCommand);
         } else if (transactionCommand != null) {
             return executeTransactionCommand(transactionCommand);
         }
+
+        // Update storage
 
         throw new ParseException(String.format(MESSAGE_UNKNOWN_COMMAND, commandText));
     }
@@ -72,7 +75,7 @@ public class LogicManager implements Logic {
      */
     public boolean isTransactionCommand(String commandText) {
         try {
-            spleetwaise.transaction.logic.commands.Command transactionCommand = transactionParser.parseCommand(
+            Command transactionCommand = transactionParser.parseCommand(
                     commandText);
             return transactionCommand != null;
         } catch (ParseException pe) {
@@ -111,7 +114,7 @@ public class LogicManager implements Logic {
     }
 
     // TODO: We need to write both storages because AB commands might result in changes to TB data
-    private CommandResult executeAddressBookCommand(spleetwaise.address.logic.commands.Command addressBookCommand)
+    private CommandResult executeAddressBookCommand(Command addressBookCommand)
             throws SpleetWaiseCommandException {
         CommandResult commandResult = addressBookCommand.execute();
 
@@ -127,7 +130,7 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-    private CommandResult executeTransactionCommand(spleetwaise.transaction.logic.commands.Command transactionCommand)
+    private CommandResult executeTransactionCommand(Command transactionCommand)
             throws SpleetWaiseCommandException {
         CommandResult commandResult = transactionCommand.execute();
 

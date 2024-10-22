@@ -15,9 +15,9 @@ import javafx.stage.Stage;
 import spleetwaise.address.commons.core.GuiSettings;
 import spleetwaise.address.commons.core.LogsCenter;
 import spleetwaise.address.logic.Logic;
-import spleetwaise.address.logic.commands.CommandResult;
 import spleetwaise.address.logic.parser.exceptions.ParseException;
 import spleetwaise.commons.exceptions.SpleetWaiseCommandException;
+import spleetwaise.commons.logic.commands.CommandResult;
 import spleetwaise.transaction.ui.TransactionListPanel;
 
 /**

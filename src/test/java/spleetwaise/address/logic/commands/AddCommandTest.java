@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import spleetwaise.address.commons.core.GuiSettings;
 import spleetwaise.address.logic.Messages;
-import spleetwaise.address.logic.commands.exceptions.CommandException;
 import spleetwaise.address.model.AddressBook;
 import spleetwaise.address.model.AddressBookModel;
 import spleetwaise.address.model.ReadOnlyAddressBook;
@@ -25,7 +24,9 @@ import spleetwaise.address.model.person.Person;
 import spleetwaise.address.testutil.Assert;
 import spleetwaise.address.testutil.PersonBuilder;
 import spleetwaise.address.testutil.TypicalPersons;
-import spleetwaise.commons.CommonModel;
+import spleetwaise.commons.logic.commands.CommandResult;
+import spleetwaise.commons.logic.commands.exceptions.CommandException;
+import spleetwaise.commons.model.CommonModel;
 
 public class AddCommandTest {
 

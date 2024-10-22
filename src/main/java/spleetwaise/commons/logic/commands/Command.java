@@ -1,7 +1,6 @@
-package spleetwaise.transaction.logic.commands;
+package spleetwaise.commons.logic.commands;
 
-import spleetwaise.address.logic.commands.CommandResult;
-import spleetwaise.transaction.logic.commands.exceptions.CommandException;
+import spleetwaise.commons.logic.commands.exceptions.CommandException;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
