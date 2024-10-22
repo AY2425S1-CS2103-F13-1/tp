@@ -52,19 +52,30 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         // Parse command
-        Command addressBookCommand = addressBookParser.parseCommand(commandText);
-        Command transactionCommand = transactionParser.parseCommand(commandText);
-
-        // Execute commands
-        if (addressBookCommand != null) {
-            return executeAddressBookCommand(addressBookCommand);
-        } else if (transactionCommand != null) {
-            return executeTransactionCommand(transactionCommand);
+        Command command;
+        command = addressBookParser.parseCommand(commandText);
+        if (command == null) {
+            command = transactionParser.parseCommand(commandText);
+        }
+        if (command == null) {
+            throw new ParseException(String.format(MESSAGE_UNKNOWN_COMMAND, commandText));
         }
 
-        // Update storage
+        // Execute command
+        CommandResult commandResult = command.execute();
 
-        throw new ParseException(String.format(MESSAGE_UNKNOWN_COMMAND, commandText));
+        // Update storage
+        try {
+            CommonModel model = CommonModel.getInstance();
+            storage.saveTransactionBook(model.getTransactionBook());
+            storage.saveAddressBook(model.getAddressBook());
+        } catch (AccessDeniedException e) {
+            throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
+        } catch (IOException ioe) {
+            throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
+        }
+
+        return commandResult;
     }
 
     /**
@@ -111,38 +122,5 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Transaction> getFilteredTransactionList() {
         return CommonModel.getInstance().getFilteredTransactionList();
-    }
-
-    // TODO: We need to write both storages because AB commands might result in changes to TB data
-    private CommandResult executeAddressBookCommand(Command addressBookCommand)
-            throws SpleetWaiseCommandException {
-        CommandResult commandResult = addressBookCommand.execute();
-
-        // Save AddressBook data
-        try {
-            storage.saveAddressBook(CommonModel.getInstance().getAddressBook());
-        } catch (AccessDeniedException e) {
-            throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
-        } catch (IOException ioe) {
-            throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
-        }
-
-        return commandResult;
-    }
-
-    private CommandResult executeTransactionCommand(Command transactionCommand)
-            throws SpleetWaiseCommandException {
-        CommandResult commandResult = transactionCommand.execute();
-
-        // Save TransactionBook data
-        try {
-            storage.saveTransactionBook(CommonModel.getInstance().getTransactionBook());
-        } catch (AccessDeniedException e) {
-            throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
-        } catch (IOException ioe) {
-            throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
-        }
-
-        return commandResult;
     }
 }
