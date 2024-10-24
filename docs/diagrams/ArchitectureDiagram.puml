@@ -4,30 +4,62 @@
 !include <office/Users/user>
 !include style.puml
 
-Package " "<<Rectangle>>{
-    Class UI UI_COLOR
-    Class Logic LOGIC_COLOR
-    Class Storage STORAGE_COLOR
-    Class Model MODEL_COLOR
-    Class Main #grey
-    Class Commons LOGIC_COLOR_T2
+Package "spleetwaise.commons" <<Rectangle>> {
+    Class commons_UI UI_COLOR
+    Class commons_Logic LOGIC_COLOR
+    Class commons_Storage STORAGE_COLOR
+    Class commons_Model MODEL_COLOR
+    Class commons_Main #grey
+    Class commons_Commons LOGIC_COLOR_T2
+}
+
+Package "spleetwaise.aB" <<Rectangle>> {
+    Class aB_UI UI_COLOR
+    Class aB_Logic LOGIC_COLOR
+    Class aB_Storage STORAGE_COLOR
+    Class aB_Model MODEL_COLOR
+    Class aB_Main #grey
+    Class aB_Commons LOGIC_COLOR_T2
+}
+
+Package "spleetwaise.txn" <<Rectangle>> {
+    Class txn_UI UI_COLOR
+    Class txn_Logic LOGIC_COLOR
+    Class txn_Storage STORAGE_COLOR
+    Class txn_Model MODEL_COLOR
+    Class txn_Main #grey
+    Class txn_Commons LOGIC_COLOR_T2
 }
 
 Class "<$user>" as User MODEL_COLOR_T2
 Class "<$documents>" as File UI_COLOR_T1
 
+aB_UI -[#green]> aB_Logic
+aB_UI -right[#green]-> aB_Model
+aB_Logic -[#blue]-> aB_Storage
+aB_Logic -down[#blue]-> aB_Model
+aB_Main -[#grey]-> aB_UI
+aB_Main -[#grey]-> aB_Logic
+aB_Main -[#grey]-> aB_Storage
+aB_Main -up[#grey]-> aB_Model
+aB_Main -down[hidden]-> aB_Commons
 
-UI -[#green]> Logic
-UI -right[#green]-> Model
-Logic -[#blue]-> Storage
-Logic -down[#blue]-> Model
-Main -[#grey]-> UI
-Main -[#grey]-> Logic
-Main -[#grey]-> Storage
-Main -up[#grey]-> Model
-Main -down[hidden]-> Commons
+txn_UI -[#green]> txn_Logic
+txn_UI -right[#green]-> txn_Model
+txn_Logic -[#blue]-> txn_Storage
+txn_Logic -down[#blue]-> txn_Model
+txn_Main -[#grey]-> txn_UI
+txn_Main -[#grey]-> txn_Logic
+txn_Main -[#grey]-> txn_Storage
+txn_Main -up[#grey]-> txn_Model
+txn_Main -down[hidden]-> txn_Commons
 
-Storage -up[STORAGE_COLOR].> Model
-Storage .right[STORAGE_COLOR].>File
-User ..> UI
+aB_Storage -up[STORAGE_COLOR].> File
+txn_Storage -up[STORAGE_COLOR].> File
+User ..> aB_UI
+
+aB_Logic -down[#blue]-> commons_Logic
+txn_Logic -down[#blue]-> commons_Logic
+aB_Model -down[#red]-> commons_Model
+txn_Model -down[#red]-> commons_Model
 @enduml
