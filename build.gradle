@@ -31,7 +31,6 @@ task guiTests(type: Test) {
     useJUnitPlatform()
     include 'systemtests/**'
     enableAssertions = true
-    finalizedBy jacocoTestReport
 }
 
 task nonGuiTests(type: Test) {
@@ -63,12 +62,14 @@ task coverage(type: JacocoReport) {
     }
 }
 
-jacocoTestReport {
-    reports {
-        html.required = true
-        xml.required = true
-    }
-}
+//jacocoTestReport {
+//    dependsOn nonGuiTests
+//
+//    reports {
+//        html.required = true
+//        xml.required = true
+//    }
+//}
 
 dependencies {
     String jUnitVersion = '5.4.0'
