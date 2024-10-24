@@ -1,6 +1,7 @@
 package spleetwaise.transaction.model.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,15 @@ public class CategoryTest {
     }
 
     @Test
-    public void validCatName() {
+    public void validCat() {
+        assertEquals(testCat, testCat);
         assertEquals(testCat, new Category("FOOD"));
+        assertEquals("FOOD", testCat.toString());
+    }
+
+    @Test
+    public void invalidCat() {
+        assertNotEquals(testCat, new Category("EXTRA"));
+        assertNotEquals(testCat, null);
     }
 }
