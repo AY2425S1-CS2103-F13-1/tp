@@ -37,7 +37,10 @@ jobs:
           java-package: jdk+fx
 
       - name: Build and check with Gradle
-        run: ./gradlew clean checkstyleMain checkstyleTest nonGuiTests coverage
+        run: ./gradlew clean checkstyleMain checkstyleTest nonGuiTests
+
+      - name: Build and check with Gradle
+        run: ./gradlew check coverage
 
       - name: Upload coverage reports to Codecov
         if: runner.os == 'Linux'
