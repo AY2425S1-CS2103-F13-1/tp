@@ -31,6 +31,10 @@ task guiTests(type: Test) {
     useJUnitPlatform()
     include 'systemtests/**'
     enableAssertions = true
+
+    jacoco {
+        enabled = false
+    }
 }
 
 task nonGuiTests(type: Test) {
@@ -39,6 +43,10 @@ task nonGuiTests(type: Test) {
     include 'spleetwaise/common/**'
     include 'spleetwaise/transaction/**'
     enableAssertions = true
+
+    jacoco {
+        enabled = true
+    }
     finalizedBy jacocoTestReport
 }
 
@@ -47,10 +55,26 @@ task allTests {
     dependsOn nonGuiTests, guiTests
 }
 
+jacocoTestReport {
+    dependsOn nonGuiTests
+
+    reports {
+        html.required = true
+        xml.required = true
+    }
+
+    executionData.setFrom(fileTree(dir: buildDir, includes: [
+            "jacoco/nonGuiTests.exec"
+    ]))
+}
+
 task coverage(type: JacocoReport) {
+    dependsOn jacocoTestReport
+
     sourceDirectories.from files(sourceSets.main.allSource.srcDirs)
     classDirectories.from files(sourceSets.main.output)
     executionData.from files(jacocoTestReport.executionData)
+
     afterEvaluate {
         classDirectories.from files(classDirectories.files.collect {
             fileTree(dir: it, exclude: ['**/*.jar'])
@@ -61,15 +85,6 @@ task coverage(type: JacocoReport) {
         xml.required = true
     }
 }
-
-//jacocoTestReport {
-//    dependsOn nonGuiTests
-//
-//    reports {
-//        html.required = true
-//        xml.required = true
-//    }
-//}
 
 dependencies {
     String jUnitVersion = '5.4.0'
