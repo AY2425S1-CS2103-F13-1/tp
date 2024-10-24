@@ -22,7 +22,6 @@ checkstyle {
 
 test {
     useJUnitPlatform()
-    finalizedBy jacocoTestReport
 
     systemProperty 'testfx.setup.timeout', '60000'
     enableAssertions = true
@@ -32,6 +31,7 @@ task guiTests(type: Test) {
     useJUnitPlatform()
     include 'systemtests/**'
     enableAssertions = true
+    finalizedBy jacocoTestReport
 }
 
 task nonGuiTests(type: Test) {
@@ -40,6 +40,7 @@ task nonGuiTests(type: Test) {
     include 'spleetwaise/common/**'
     include 'spleetwaise/transaction/**'
     enableAssertions = true
+    finalizedBy jacocoTestReport
 }
 
 guiTests.mustRunAfter nonGuiTests
@@ -56,6 +57,13 @@ task coverage(type: JacocoReport) {
             fileTree(dir: it, exclude: ['**/*.jar'])
         })
     }
+    reports {
+        html.required = true
+        xml.required = true
+    }
+}
+
+jacocoTestReport {
     reports {
         html.required = true
         xml.required = true
