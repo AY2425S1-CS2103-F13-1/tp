@@ -3,3 +3,4 @@ ignore:
   - "src/main/java/spleetwaise/address/ui/*"
   - "src/main/java/spleetwaise/transaction/ui/*"
   - "src/main/java/spleetwaise/commons/MainApp.java"
+  - "src/main/java/spleetwaise/address/Main.java"
